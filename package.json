@@ -1,0 +1,30 @@
+{
+  "name": "forecast",
+  "version": "1.0.0",
+  "description": "forecast challenge",
+  "main": "index.js",
+  "scripts": {
+    "client": "cd client && npm start",
+    "server": "cd server && node index.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aserantes/forecast.git"
+  },
+  "keywords": [
+    "tech",
+    "challenge",
+    "test",
+    "forecast",
+    "aserantes"
+  ],
+  "author": "aserantes@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aserantes/forecast/issues"
+  },
+  "dependencies": {
+    "concurrently": "^5.1.0"
+  }
+}
