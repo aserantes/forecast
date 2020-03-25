@@ -4,18 +4,16 @@
   "description": "forecast challenge",
   "main": "index.js",
   "scripts": {
-    "client": "cd client && npm start",
+    "client": "cd client && yarn start",
     "server": "cd server && node index.js",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"yarn run server\" \"yarn run client\""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/aserantes/forecast.git"
   },
   "keywords": [
-    "tech",
     "challenge",
-    "test",
     "forecast",
     "aserantes"
   ],
