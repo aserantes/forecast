@@ -9,7 +9,7 @@ import 'typeface-roboto';
 import Input from './Input';
 import Forecast from './Forecast';
 
-const App = (props) => {
+function App(props) {
   const { prefersDarkMode } = props;
   const theme = React.useMemo(
     () =>
@@ -39,10 +39,10 @@ const App = (props) => {
       </CssBaseline>
     </ThemeProvider>
   );
-};
+}
 
-const mapStateToProps = ({ prefersDarkMode }) => ({
-  prefersDarkMode,
+const mapStateToProps = ({ ui }) => ({
+  prefersDarkMode: ui.prefersDarkMode,
 });
 
 export default connect(mapStateToProps)(App);
