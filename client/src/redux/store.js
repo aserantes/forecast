@@ -1,23 +1,8 @@
-import { createSlice, configureStore } from '@reduxjs/toolkit';
-
-const initialState = {
-  ui: {
-    prefersDarkMode: false,
-  },
-};
-
-const uiSlice = createSlice({
-  name: 'ui',
-  initialState: initialState.ui,
-  reducers: {
-    toggleDarkMode: (state) => {
-      state.prefersDarkMode = !state.prefersDarkMode;
-    },
-  },
-});
-
-export const { toggleDarkMode } = uiSlice.actions;
+import { configureStore } from '@reduxjs/toolkit';
+import ui from './ui';
+import cities from './cities';
+import forecast from './forecast';
 
 export const store = configureStore({
-  reducer: { ui: uiSlice.reducer },
+  reducer: { ui, cities, forecast },
 });

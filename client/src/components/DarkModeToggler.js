@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import { toggleDarkMode } from '../redux/store';
+import { toggleDarkMode } from '../redux/ui';
 
 function DarkModeToggler(props) {
   const { toggleDarkMode } = props;
@@ -10,7 +10,7 @@ function DarkModeToggler(props) {
   };
 
   return (
-    <Button variant="contained" onClick={handleClick}>
+    <Button variant='contained' onClick={handleClick}>
       Dark Mode Toggle
     </Button>
   );
