@@ -5,8 +5,12 @@ import { toggleDarkMode } from '../redux/actions';
 
 function DarkModeToggler(props) {
   const { toggleDarkMode } = props;
+  const handleClick = () => {
+    toggleDarkMode();
+  };
+
   return (
-    <Button variant="contained" onClick={toggleDarkMode}>
+    <Button variant="contained" onClick={handleClick}>
       Dark Mode Toggle
     </Button>
   );

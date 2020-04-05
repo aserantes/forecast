@@ -1,16 +1,14 @@
+import { createReducer } from '@reduxjs/toolkit';
 import { toggleDarkMode } from './actions';
 
 const defaultState = {
   prefersDarkMode: false,
 };
 
-const uiReducer = (state = defaultState, action) => {
-  switch (action.type) {
-    case toggleDarkMode.type:
-      return { ...state, prefersDarkMode: !state.prefersDarkMode };
-    default:
-      return state;
-  }
-};
+const uiReducer = createReducer(defaultState, {
+  [toggleDarkMode]: (state) => {
+    state.prefersDarkMode = !state.prefersDarkMode;
+  },
+});
 
 export { uiReducer };
