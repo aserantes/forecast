@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux';
 import * as types from './types';
 
 const defaultState = {
@@ -14,6 +13,4 @@ const uiReducer = (state = defaultState, action) => {
   }
 };
 
-const rootReducer = combineReducers({ ui: uiReducer });
-
-export { rootReducer };
+export { uiReducer };
