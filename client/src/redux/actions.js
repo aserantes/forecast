@@ -1,7 +1,5 @@
-import * as types from './types';
+import { createAction } from '@reduxjs/toolkit';
 
-function toggleDarkMode() {
-  return { type: types.TOGGLE_DARK_MODE };
-}
+const toggleDarkMode = createAction('TOGGLE_DARK_MODE');
 
 export { toggleDarkMode };

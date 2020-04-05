@@ -1,4 +1,4 @@
-import * as types from './types';
+import { toggleDarkMode } from './actions';
 
 const defaultState = {
   prefersDarkMode: false,
@@ -6,7 +6,7 @@ const defaultState = {
 
 const uiReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case types.TOGGLE_DARK_MODE:
+    case toggleDarkMode.type:
       return { ...state, prefersDarkMode: !state.prefersDarkMode };
     default:
       return state;
