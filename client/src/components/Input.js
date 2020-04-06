@@ -10,7 +10,7 @@ function Input(props) {
   const { setInputValue, setCityNameToSearch, reset, matches, inputValue, cityNameToSearch } = props;
 
   useEffect(() => {
-    if (!inputValue && matches) {
+    if (!inputValue && matches.length) {
       reset();
     }
   }, [inputValue, matches, reset]);
@@ -56,7 +56,8 @@ function Input(props) {
 const mapStateToProps = ({ ui, cities }) => ({
   inputValue: ui.inputValue,
   cityNameToSearch: cities.cityNameToSearch,
-  matches: cities.matches
+  matches: cities.matches,
+  pending: cities.pending
 });
 
 const mapDispatchToProps = {
