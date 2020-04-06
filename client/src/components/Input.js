@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { TextField, Grid, Button } from '@material-ui/core';
+import { TextField, Grid } from '@material-ui/core';
+import { useDebouncedEffect } from '../hooks/useDebouncedEffect';
 import { setInputValue } from '../redux/ui';
 import { setCityNameToSearch, reset } from '../redux/cities';
 import InputResults from './InputResults';
 import PrevSearches from './PrevSearches';
 
 function Input(props) {
-  const { setInputValue, setCityNameToSearch, reset, matches, inputValue, cityNameToSearch } = props;
+  const { setInputValue, setCityNameToSearch, reset, matches, inputValue } = props;
 
   useEffect(() => {
     if (!inputValue && matches.length) {
@@ -15,12 +16,15 @@ function Input(props) {
     }
   }, [inputValue, matches, reset]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (inputValue !== cityNameToSearch) {
-      setCityNameToSearch(inputValue);
-    }
-  };
+  useDebouncedEffect(
+    () => {
+      if (inputValue.length > 2) {
+        setCityNameToSearch(inputValue);
+      }
+    },
+    500,
+    [inputValue]
+  );
 
   const handleChange = (e) => {
     const { value } = e.target;
@@ -41,9 +45,6 @@ function Input(props) {
             fullWidth
             onChange={handleChange}
           />
-          <Button type='submit' onClick={handleSubmit}>
-            GO
-          </Button>
         </form>
       </Grid>
       <Grid item xs={12}>
@@ -55,7 +56,6 @@ function Input(props) {
 
 const mapStateToProps = ({ ui, cities }) => ({
   inputValue: ui.inputValue,
-  cityNameToSearch: cities.cityNameToSearch,
   matches: cities.matches,
   pending: cities.pending
 });
