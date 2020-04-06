@@ -1,24 +1,21 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchCities } from '../redux/cities';
 import CityList from './CityList';
 
-function InputResults(props) {
-  const { cityNameToSearch, matches, fetchCities } = props;
+function InputResults() {
+  const dispatch = useDispatch();
+
+  const matches = useSelector((state) => state.cities.matches);
+  const cityNameToSearch = useSelector((state) => state.cities.cityNameToSearch);
+
   useEffect(() => {
     if (cityNameToSearch) {
-      fetchCities(cityNameToSearch);
+      dispatch(fetchCities(cityNameToSearch));
     }
-  }, [cityNameToSearch, fetchCities]);
+  }, [cityNameToSearch, dispatch]);
 
   return matches && <CityList cities={matches} />;
 }
 
-const mapStateToProps = ({ cities }) => ({
-  cityNameToSearch: cities.cityNameToSearch,
-  matches: cities.matches
-});
-
-const mapDispatchToProps = { fetchCities };
-
-export default connect(mapStateToProps, mapDispatchToProps)(InputResults);
+export default InputResults;

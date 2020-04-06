@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { Container, Grid, Box } from '@material-ui/core';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -9,14 +9,14 @@ import 'typeface-roboto';
 import Input from './Input';
 import Forecast from './Forecast';
 
-function App(props) {
-  const { prefersDarkMode } = props;
+function App() {
+  const prefersDarkMode = useSelector((state) => state.ui.prefersDarkMode);
   const theme = React.useMemo(
     () =>
       createMuiTheme({
         palette: {
-          type: prefersDarkMode ? 'dark' : 'light',
-        },
+          type: prefersDarkMode ? 'dark' : 'light'
+        }
       }),
     [prefersDarkMode]
   );
@@ -24,7 +24,7 @@ function App(props) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline>
-        <Container maxWidth="sm">
+        <Container maxWidth='sm'>
           <Box m={2}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
@@ -41,8 +41,4 @@ function App(props) {
   );
 }
 
-const mapStateToProps = ({ ui }) => ({
-  prefersDarkMode: ui.prefersDarkMode,
-});
-
-export default connect(mapStateToProps)(App);
+export default App;

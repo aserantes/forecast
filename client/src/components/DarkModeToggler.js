@@ -1,12 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import { toggleDarkMode } from '../redux/ui';
 
-function DarkModeToggler(props) {
-  const { toggleDarkMode } = props;
+function DarkModeToggler() {
+  const dispatch = useDispatch();
+
   const handleClick = () => {
-    toggleDarkMode();
+    dispatch(toggleDarkMode());
   };
 
   return (
@@ -16,6 +17,4 @@ function DarkModeToggler(props) {
   );
 }
 
-const mapDispatchToProps = { toggleDarkMode };
-
-export default connect(null, mapDispatchToProps)(DarkModeToggler);
+export default DarkModeToggler;

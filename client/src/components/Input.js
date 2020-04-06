@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Grid } from '@material-ui/core';
 import { useDebouncedEffect } from '../hooks/useDebouncedEffect';
 import { setInputValue } from '../redux/ui';
@@ -7,19 +7,22 @@ import { setCityNameToSearch, reset } from '../redux/cities';
 import InputResults from './InputResults';
 import PrevSearches from './PrevSearches';
 
-function Input(props) {
-  const { setInputValue, setCityNameToSearch, reset, matches, inputValue } = props;
+function Input() {
+  const dispatch = useDispatch();
+
+  const inputValue = useSelector((state) => state.ui.inputValue);
+  const matches = useSelector((state) => state.cities.matches);
 
   useEffect(() => {
     if (!inputValue && matches.length) {
-      reset();
+      dispatch(reset());
     }
-  }, [inputValue, matches, reset]);
+  }, [dispatch, inputValue, matches]);
 
   useDebouncedEffect(
     () => {
       if (inputValue.length > 2) {
-        setCityNameToSearch(inputValue);
+        dispatch(setCityNameToSearch(inputValue));
       }
     },
     500,
@@ -28,7 +31,7 @@ function Input(props) {
 
   const handleChange = (e) => {
     const { value } = e.target;
-    setInputValue(value);
+    dispatch(setInputValue(value));
   };
 
   return (
@@ -54,16 +57,4 @@ function Input(props) {
   );
 }
 
-const mapStateToProps = ({ ui, cities }) => ({
-  inputValue: ui.inputValue,
-  matches: cities.matches,
-  pending: cities.pending
-});
-
-const mapDispatchToProps = {
-  setInputValue,
-  setCityNameToSearch,
-  reset
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Input);
+export default Input;
