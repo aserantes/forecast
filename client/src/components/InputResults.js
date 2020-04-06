@@ -6,9 +6,7 @@ import CityList from './CityList';
 function InputResults(props) {
   const { cityNameToSearch, matches, fetchCities } = props;
   useEffect(() => {
-    console.log(`cityNameToSearch: ${cityNameToSearch}`);
     if (cityNameToSearch) {
-      console.log(`New! Searching for: ${cityNameToSearch}`);
       fetchCities(cityNameToSearch);
     }
   }, [cityNameToSearch, fetchCities]);
