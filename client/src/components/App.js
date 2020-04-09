@@ -26,7 +26,7 @@ function App() {
       <CssBaseline>
         <Container maxWidth='sm'>
           <Box m={2}>
-            <Grid container spacing={2}>
+            <Grid container>
               <Grid item xs={12}>
                 <Input />
               </Grid>
