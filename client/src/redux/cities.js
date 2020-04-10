@@ -2,15 +2,14 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import API from '../API/cities';
 
 const initialState = {
-  pending: false,
-  matches: [],
-  error: null,
-  cityNameToSearch: ''
+  fetchState: null,
+  response: null,
+  cityNameToSearch: null
 };
 
 export const fetchCities = createAsyncThunk('cities/fetchCities', (q) =>
   API.get('/', { params: { q } })
-    .then((ok) => ok.data)
+    .then((res) => res.data)
     .catch((err) => err)
 );
 
@@ -25,15 +24,11 @@ const citiesSlice = createSlice({
   },
   extraReducers: {
     [fetchCities.fulfilled]: (state, action) => {
-      state.matches = action.payload;
-      state.pending = false;
-    },
-    [fetchCities.rejected]: (state, action) => {
-      state.error = action.payload;
-      state.pending = false;
+      state.response = action.payload;
+      state.fetchState = 'fulfilled';
     },
     [fetchCities.pending]: (state) => {
-      state.pending = true;
+      state.fetchState = 'pending';
     }
   }
 });

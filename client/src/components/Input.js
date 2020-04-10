@@ -16,6 +16,7 @@ function Input() {
 
   const inputValue = useSelector((state) => state.ui.inputValue);
   const cityIdToSearch = useSelector((state) => state.forecast.cityIdToSearch);
+
   useEffect(() => {
     if (!inputValue) {
       dispatch(setCityIdToSearch(''));
@@ -26,7 +27,7 @@ function Input() {
   const prev = usePrevious(inputValue);
   useDebouncedEffect(
     () => {
-      if (inputValue.length > 2 && !cityIdToSearch && prev !== inputValue) {
+      if (inputValue.length > 2 && prev !== inputValue && !cityIdToSearch) {
         dispatch(setCityNameToSearch(inputValue));
       }
     },
