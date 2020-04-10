@@ -18,7 +18,7 @@ const citiesSlice = createSlice({
   name: 'cities',
   initialState,
   reducers: {
-    reset: () => initialState,
+    citiesReset: () => initialState,
     setCityNameToSearch: (state, action) => {
       state.cityNameToSearch = action.payload;
     }
@@ -40,6 +40,6 @@ const citiesSlice = createSlice({
 
 const { actions, reducer } = citiesSlice;
 
-export const { reset, setCityNameToSearch } = actions;
+export const { citiesReset, setCityNameToSearch } = actions;
 
 export default reducer;

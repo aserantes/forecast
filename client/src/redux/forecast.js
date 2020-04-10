@@ -5,11 +5,11 @@ const initialState = {
   pending: false,
   forecast: null,
   error: null,
-  cityIdToSearch: null,
+  cityIdToSearch: null
 };
 
 export const fetchForecast = createAsyncThunk('forecast/fetchForecast', (id) =>
-  API.get('/', { id })
+  API.get('/', { params: { id } })
     .then((ok) => ok.data)
     .catch((err) => err)
 );
@@ -18,7 +18,10 @@ const forecastSlice = createSlice({
   name: 'forecast',
   initialState,
   reducers: {
-    reset: (state) => initialState,
+    forecastReset: () => initialState,
+    setCityIdToSearch: (state, action) => {
+      state.cityIdToSearch = action.payload;
+    }
   },
   extraReducers: {
     [fetchForecast.fulfilled]: (state, action) => {
@@ -31,12 +34,12 @@ const forecastSlice = createSlice({
     },
     [fetchForecast.pending]: (state) => {
       state.pending = true;
-    },
-  },
+    }
+  }
 });
 
 const { actions, reducer } = forecastSlice;
 
-export const { reset } = actions;
+export const { forecastReset, setCityIdToSearch } = actions;
 
 export default reducer;

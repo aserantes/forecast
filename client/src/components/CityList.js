@@ -3,7 +3,7 @@ import { List, ListItemAvatar, Avatar, ListItem, ListItemText } from '@material-
 import { makeStyles } from '@material-ui/core/styles';
 
 function CityList(props) {
-  const { cities } = props;
+  const { cities, onCityClick } = props;
 
   const useStyles = makeStyles({
     small: {
@@ -21,7 +21,7 @@ function CityList(props) {
 
   const renderCities = () =>
     cities.map((city) => (
-      <ListItem key={city.id} button>
+      <ListItem key={city.id} button onClick={() => onCityClick(city.id, city.name)}>
         <ListItemAvatar>
           <Avatar
             className={classes.small}
@@ -38,11 +38,7 @@ function CityList(props) {
       </ListItem>
     ));
 
-  return (
-    <List className={classes.scrollable} dense>
-      {renderCities()}
-    </List>
-  );
+  return <List className={classes.scrollable}>{renderCities()}</List>;
 }
 
 export default CityList;

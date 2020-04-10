@@ -2,8 +2,12 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Grid } from '@material-ui/core';
 import { useDebouncedEffect } from '../hooks/useDebouncedEffect';
+import { usePrevious } from '../hooks/usePrevious';
+// state
+import { setCityNameToSearch, citiesReset } from '../redux/cities';
+import { setCityIdToSearch } from '../redux/forecast';
 import { setInputValue } from '../redux/ui';
-import { setCityNameToSearch, reset } from '../redux/cities';
+// components
 import InputResults from './InputResults';
 import PrevSearches from './PrevSearches';
 
@@ -11,21 +15,22 @@ function Input() {
   const dispatch = useDispatch();
 
   const inputValue = useSelector((state) => state.ui.inputValue);
-  const matches = useSelector((state) => state.cities.matches);
-
+  const cityIdToSearch = useSelector((state) => state.forecast.cityIdToSearch);
   useEffect(() => {
-    if (!inputValue && matches.length) {
-      dispatch(reset());
+    if (!inputValue) {
+      dispatch(setCityIdToSearch(''));
+      dispatch(citiesReset());
     }
-  }, [dispatch, inputValue, matches]);
+  }, [dispatch, inputValue]);
 
+  const prev = usePrevious(inputValue);
   useDebouncedEffect(
     () => {
-      if (inputValue.length > 2) {
+      if (inputValue.length > 2 && !cityIdToSearch && prev !== inputValue) {
         dispatch(setCityNameToSearch(inputValue));
       }
     },
-    500,
+    1000,
     [inputValue]
   );
 
@@ -40,13 +45,14 @@ function Input() {
         <PrevSearches />
       </Grid>
       <Grid item xs={12}>
-        <form noValidate autoComplete='off'>
+        <form noValidate autoComplete='off' onSubmit={(e) => e.preventDefault()}>
           <TextField
-            label='Enter city name...'
+            label='Enter city name'
             id='outlined-margin-normal'
             variant='outlined'
             fullWidth
             onChange={handleChange}
+            value={inputValue}
           />
         </form>
       </Grid>
