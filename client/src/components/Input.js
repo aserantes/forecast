@@ -39,6 +39,7 @@ function Input() {
           onChange={handleChange}
           value={inputValue}
           disabled={fetchState === 'pending'}
+          autoComplete='off'
         />
       </Grid>
       <Grid item xs={12}>

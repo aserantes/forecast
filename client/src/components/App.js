@@ -7,7 +7,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import 'typeface-roboto';
 
 import Input from './Input';
-import Forecast from './Forecast';
+import ForecastResults from './ForecastResults';
 
 function App() {
   const prefersDarkMode = useSelector((state) => state.ui.prefersDarkMode);
@@ -31,7 +31,7 @@ function App() {
                 <Input />
               </Grid>
               <Grid item xs={12}>
-                <Forecast />
+                <ForecastResults />
               </Grid>
             </Grid>
           </Box>

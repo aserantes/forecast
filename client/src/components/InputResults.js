@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Alert from '@material-ui/lab/Alert';
+import { Alert } from '@material-ui/lab';
 import { CircularProgress, Grid } from '@material-ui/core';
 
 import { citiesReset, fetchCities } from '../redux/cities';
-import { setInputValue } from '../redux/ui';
+import { setInputValue, addPreviousCities } from '../redux/ui';
 import { setCityIdToSearch } from '../redux/forecast';
 import CityList from './CityList';
 
@@ -13,6 +13,7 @@ function InputResults() {
 
   const handleCityClick = (id, name) => {
     dispatch(setInputValue(name));
+    dispatch(addPreviousCities({ id, name }));
     dispatch(citiesReset());
     dispatch(setCityIdToSearch(id));
   };
@@ -22,29 +23,35 @@ function InputResults() {
   const fetchState = useSelector((state) => state.cities.fetchState);
   const inputValue = useSelector((state) => state.ui.inputValue);
 
-  const results = fetchState === 'fulfilled' && !response.name && response.length;
-  const noResults = fetchState === 'fulfilled' && !response.name && !response.length;
-  const error = fetchState === 'fulfilled' && response.name;
-  const pending = fetchState === 'pending';
-  const idle = fetchState === 'idle';
-
   useEffect(() => {
     if (cityNameToSearch) {
       dispatch(fetchCities(cityNameToSearch));
     }
   }, [cityNameToSearch, dispatch]);
 
-  return (
-    !idle &&
-    ((results && <CityList cities={response} onCityClick={handleCityClick} />) ||
-      (noResults && <Alert severity='info'>No cities found using &quot;{inputValue}&quot;.</Alert>) ||
-      (error && <Alert severity='error'>{response.message}</Alert>) ||
-      (pending && (
-        <Grid container justify='center'>
-          <CircularProgress disableShrink />
-        </Grid>
-      )))
-  );
+  const renderComponent = () => {
+    if (fetchState !== 'idle') {
+      if (fetchState === 'fulfilled') {
+        if (!response.name) {
+          if (response.length) {
+            return <CityList cities={response} onCityClick={handleCityClick} />;
+          }
+          return <Alert severity='info'>No cities found using &quot;{inputValue}&quot;.</Alert>;
+        }
+        return <Alert severity='error'>{response.message}</Alert>;
+      }
+      if (fetchState === 'pending') {
+        return (
+          <Grid container justify='center'>
+            <CircularProgress disableShrink />
+          </Grid>
+        );
+      }
+    }
+    return null;
+  };
+
+  return renderComponent();
 }
 
 export default InputResults;

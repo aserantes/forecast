@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   prefersDarkMode: false,
   inputValue: '',
+  previousCities: []
 };
 
 const uiSlice = createSlice({
@@ -15,12 +16,15 @@ const uiSlice = createSlice({
     setInputValue: (state, action) => {
       state.inputValue = action.payload;
     },
-    extraReducers: {},
-  },
+    addPreviousCities: (state, action) => {
+      state.previousCities.push(action.payload);
+      if (state.previousCities.length > 5) state.previousCities.shift();
+    }
+  }
 });
 
 const { actions, reducer } = uiSlice;
 
-export const { toggleDarkMode, setInputValue } = actions;
+export const { toggleDarkMode, setInputValue, addPreviousCities } = actions;
 
 export default reducer;
