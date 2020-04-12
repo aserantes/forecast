@@ -22,28 +22,29 @@ function InputResults() {
   const fetchState = useSelector((state) => state.cities.fetchState);
   const inputValue = useSelector((state) => state.ui.inputValue);
 
-  useEffect(() => {
-    if (cityNameToSearch) {
-      dispatch(fetchCities(cityNameToSearch));
-    }
-  }, [cityNameToSearch, dispatch]);
-
   const results = fetchState === 'fulfilled' && !response.name && response.length;
   const noResults = fetchState === 'fulfilled' && !response.name && !response.length;
   const error = fetchState === 'fulfilled' && response.name;
   const pending = fetchState === 'pending';
   const idle = fetchState === 'idle';
 
-  return !idle
-    ? (results && <CityList cities={response} onCityClick={handleCityClick} />) ||
-        (noResults && <Alert severity='info'>No cities found using &quot;{inputValue}&quot;.</Alert>) ||
-        (error && <Alert severity='error'>{response.message}</Alert>) ||
-        (pending && (
-          <Grid container justify='center'>
-            <CircularProgress disableShrink />
-          </Grid>
-        ))
-    : null;
+  useEffect(() => {
+    if (cityNameToSearch) {
+      dispatch(fetchCities(cityNameToSearch));
+    }
+  }, [cityNameToSearch, dispatch]);
+
+  return (
+    !idle &&
+    ((results && <CityList cities={response} onCityClick={handleCityClick} />) ||
+      (noResults && <Alert severity='info'>No cities found using &quot;{inputValue}&quot;.</Alert>) ||
+      (error && <Alert severity='error'>{response.message}</Alert>) ||
+      (pending && (
+        <Grid container justify='center'>
+          <CircularProgress disableShrink />
+        </Grid>
+      )))
+  );
 }
 
 export default InputResults;

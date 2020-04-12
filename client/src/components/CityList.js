@@ -1,44 +1,26 @@
 import React from 'react';
-import { List, ListItemAvatar, Avatar, ListItem, ListItemText } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { FixedSizeList as List } from 'react-window';
+import City from './City';
+
+const Row = (props) => {
+  const { index, style, data } = props;
+  const { cities, onCityClick } = data;
+  const cityItem = cities[index];
+  return (
+    <div style={style} key={index}>
+      <City city={cityItem} onCityClick={onCityClick} />
+    </div>
+  );
+};
 
 function CityList(props) {
   const { cities, onCityClick } = props;
 
-  const useStyles = makeStyles({
-    small: {
-      height: '24px',
-      width: '24px'
-    },
-    scrollable: {
-      maxHeight: '300px',
-      overflowX: 'hidden',
-      overflowY: 'auto'
-    }
-  });
-
-  const classes = useStyles();
-
-  const renderCities = () =>
-    cities.map((city) => (
-      <ListItem key={city.id} button onClick={() => onCityClick(city.id, city.name)}>
-        <ListItemAvatar>
-          <Avatar
-            className={classes.small}
-            variant='rounded'
-            size='small'
-            alt='la'
-            src={`https://www.countryflags.io/${city.country}/shiny/24.png`}
-          />
-        </ListItemAvatar>
-        <ListItemText>
-          {city.state && `${city.state} - `}
-          {city.name}
-        </ListItemText>
-      </ListItem>
-    ));
-
-  return <List className={classes.scrollable}>{renderCities()}</List>;
+  return (
+    <List className='List' height={300} itemCount={cities.length} itemSize={40} itemData={{ cities, onCityClick }}>
+      {Row}
+    </List>
+  );
 }
 
 export default CityList;

@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Grid } from '@material-ui/core';
-import { useDebouncedEffect } from '../hooks/useDebouncedEffect';
-import { usePrevious } from '../hooks/usePrevious';
+import { useDebouncedCallback } from 'use-debounce';
 // state
-import { setCityNameToSearch, citiesReset } from '../redux/cities';
-import { setCityIdToSearch } from '../redux/forecast';
+import { setCityNameToSearch } from '../redux/cities';
 import { setInputValue } from '../redux/ui';
 // components
 import InputResults from './InputResults';
@@ -15,29 +13,16 @@ function Input() {
   const dispatch = useDispatch();
 
   const inputValue = useSelector((state) => state.ui.inputValue);
-  const cityIdToSearch = useSelector((state) => state.forecast.cityIdToSearch);
+  const fetchState = useSelector((state) => state.cities.fetchState);
 
-  useEffect(() => {
-    if (!inputValue) {
-      dispatch(setCityIdToSearch(''));
-      dispatch(citiesReset());
-    }
-  }, [dispatch, inputValue]);
-
-  const prev = usePrevious(inputValue);
-  useDebouncedEffect(
-    () => {
-      if (inputValue.length > 2 && prev !== inputValue && !cityIdToSearch) {
-        dispatch(setCityNameToSearch(inputValue));
-      }
-    },
-    1000,
-    [inputValue]
-  );
+  const [debouncedCallback] = useDebouncedCallback((value) => {
+    if (inputValue.length > 1) dispatch(setCityNameToSearch(value));
+  }, 1000);
 
   const handleChange = (e) => {
     const { value } = e.target;
     dispatch(setInputValue(value));
+    debouncedCallback(value);
   };
 
   return (
@@ -46,16 +31,15 @@ function Input() {
         <PrevSearches />
       </Grid>
       <Grid item xs={12}>
-        <form noValidate autoComplete='off' onSubmit={(e) => e.preventDefault()}>
-          <TextField
-            label='Enter city name'
-            id='outlined-margin-normal'
-            variant='outlined'
-            fullWidth
-            onChange={handleChange}
-            value={inputValue}
-          />
-        </form>
+        <TextField
+          label='Enter city name'
+          id='outlined-margin-normal'
+          variant='outlined'
+          fullWidth
+          onChange={handleChange}
+          value={inputValue}
+          disabled={fetchState === 'pending'}
+        />
       </Grid>
       <Grid item xs={12}>
         <InputResults />
