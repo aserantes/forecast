@@ -25,8 +25,8 @@ function WeatherData({ data }) {
         </Box>
       </Box>
       <Box flexGrow={1}>
-        <Box>pressure: {pressure} hector pascuales</Box>
-        <Box>humidity: {humidity} lalala</Box>
+        <Box>pressure: {pressure} hPa</Box>
+        <Box>humidity: {humidity}%</Box>
       </Box>
     </Box>
   );
