@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   prefersDarkMode: false,
+  prefersCelcius: true,
   inputValue: '',
   previousCities: []
 };
@@ -12,6 +13,9 @@ const uiSlice = createSlice({
   reducers: {
     toggleDarkMode: (state) => {
       state.prefersDarkMode = !state.prefersDarkMode;
+    },
+    toggleCelcius: (state) => {
+      state.prefersCelcius = !state.prefersCelcius;
     },
     setInputValue: (state, action) => {
       state.inputValue = action.payload;
@@ -25,6 +29,6 @@ const uiSlice = createSlice({
 
 const { actions, reducer } = uiSlice;
 
-export const { toggleDarkMode, setInputValue, addPreviousCities } = actions;
+export const { toggleDarkMode, toggleCelcius, setInputValue, addPreviousCities } = actions;
 
 export default reducer;

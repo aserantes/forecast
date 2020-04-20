@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import DarkModeToggler from './DarkModeToggler';
+import CelciusToggler from './CelciusToggler';
 
 function PrevSearches() {
   const previousCities = useSelector((state) => state.ui.previousCities);
@@ -8,6 +9,7 @@ function PrevSearches() {
     return (
       <div>
         <DarkModeToggler />
+        <CelciusToggler />
         {previousCities.map((prevCity) => (
           <div key={prevCity.id}>{prevCity.name}</div>
         ))}
