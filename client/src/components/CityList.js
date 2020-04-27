@@ -2,7 +2,7 @@ import React from 'react';
 import { FixedSizeList as List } from 'react-window';
 import City from './City';
 
-const Row = (props) => {
+function Row(props) {
   const { index, style, data } = props;
   const { cities, onCityClick } = data;
   const cityItem = cities[index];
@@ -11,7 +11,7 @@ const Row = (props) => {
       <City city={cityItem} onCityClick={onCityClick} />
     </div>
   );
-};
+}
 
 function CityList(props) {
   const { cities, onCityClick } = props;

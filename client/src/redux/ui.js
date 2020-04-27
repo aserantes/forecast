@@ -21,8 +21,12 @@ const uiSlice = createSlice({
       state.inputValue = action.payload;
     },
     addPreviousCities: (state, action) => {
-      state.previousCities.push(action.payload);
-      if (state.previousCities.length > 5) state.previousCities.shift();
+      const newCity = action.payload;
+      const cityAlreadyExists = state.previousCities.findIndex((prevCity) => prevCity.id === newCity.id) !== -1;
+      if (!cityAlreadyExists) {
+        state.previousCities.unshift(action.payload);
+        if (state.previousCities.length > 5) state.previousCities.pop();
+      }
     }
   }
 });

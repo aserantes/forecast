@@ -24,9 +24,15 @@ function WeatherData({ data }) {
           {convertedMinTemp}
         </Box>
       </Box>
-      <Box flexGrow={1}>
-        <Box>pressure: {pressure} hPa</Box>
-        <Box>humidity: {humidity}%</Box>
+      <Box flexGrow={1} display='flex' flexDirection='column'>
+        <Box display='flex' flexDirection='row'>
+          <Box fontWeight='fontWeightBold'>pressure: </Box>
+          <Box>{pressure} hPa</Box>
+        </Box>
+        <Box display='flex' flexDirection='row'>
+          <Box fontWeight='fontWeightBold'>humidity: </Box>
+          <Box>{humidity}%</Box>
+        </Box>
       </Box>
     </Box>
   );

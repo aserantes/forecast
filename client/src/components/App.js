@@ -8,6 +8,8 @@ import 'typeface-roboto';
 
 import Input from './Input';
 import ForecastResults from './ForecastResults';
+import InputResults from './InputResults';
+import MainMenu from './MainMenu';
 
 function App() {
   const prefersDarkMode = useSelector((state) => state.ui.prefersDarkMode);
@@ -26,9 +28,15 @@ function App() {
       <CssBaseline>
         <Container maxWidth='sm'>
           <Box m={2}>
-            <Grid container>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <MainMenu />
+              </Grid>
               <Grid item xs={12}>
                 <Input />
+              </Grid>
+              <Grid item xs={12}>
+                <InputResults />
               </Grid>
               <Grid item xs={12}>
                 <ForecastResults />
