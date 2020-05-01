@@ -25,8 +25,7 @@ import {
   Delete as DeleteIcon
 } from '@material-ui/icons';
 
-import { delPreviousCity, setInputValue } from '../redux/ui';
-import { setCityIdToSearch } from '../redux/forecast';
+import { delPreviousCity, setInputValue, setCityIdToSearch } from '../redux';
 
 import DarkModeToggler from './DarkModeToggler';
 import CelciusToggler from './CelciusToggler';

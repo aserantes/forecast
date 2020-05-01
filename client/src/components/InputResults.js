@@ -2,10 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Alert } from '@material-ui/lab';
 import { CircularProgress, Grid } from '@material-ui/core';
-
-import { citiesReset, fetchCities } from '../redux/cities';
-import { setInputValue, addPreviousCities } from '../redux/ui';
-import { setCityIdToSearch } from '../redux/forecast';
+import { citiesReset, fetchCities, setInputValue, addPreviousCities, setCityIdToSearch } from '../redux';
 import CityList from './CityList';
 
 function InputResults() {

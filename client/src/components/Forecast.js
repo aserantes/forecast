@@ -1,11 +1,11 @@
 import React from 'react';
-import { Card, CardHeader, CardContent, CardMedia, Avatar, makeStyles, Divider } from '@material-ui/core';
+import { Card, CardHeader, CardContent, CardMedia, Avatar, makeStyles, Divider, colors } from '@material-ui/core';
 import WeatherData from './WeatherData';
 import { getDate } from '../helpers';
 
 const useStyles = makeStyles(() => ({
   avatar: {
-    backgroundColor: 'rgba(0, 0, 0, 0.25)'
+    backgroundColor: colors.grey[400]
   }
 }));
 

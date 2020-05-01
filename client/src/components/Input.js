@@ -2,10 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TextField } from '@material-ui/core';
 import { useDebouncedCallback } from 'use-debounce';
-// state
-import { setCityNameToSearch } from '../redux/cities';
-import { setInputValue } from '../redux/ui';
-// Components
+import { setCityNameToSearch, setInputValue } from '../redux';
 
 function Input() {
   const dispatch = useDispatch();
