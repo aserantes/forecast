@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const axios = require('axios');
+const path = require('path');
 const cities = require('./cities.json');
 
 const app = express();
@@ -44,6 +45,12 @@ app.get('/forecast', (req, res) => {
       }
       res.status(500).send(error.config);
     });
+});
+
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 app.listen(PORT, () => {
