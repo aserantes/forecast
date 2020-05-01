@@ -7,7 +7,7 @@
     "client": "cd client && yarn start",
     "server": "cd server && node index.js",
     "dev": "concurrently \"yarn run server\" \"yarn run client\"",
-    "deploy": "cd client && yarn build && cd .. && rm -r server/build && mv -f client/build server && cd server && git status && git add . && git commit -m 'automatic commit' && git push origin master && git push heroku master && heroku open",
+    "deploy": "cd client; yarn build; cd ..; rm -r server/build; mv -f client/build server; cd server; git add --all; git commit -m 'automatic commit'; git push origin master; git push heroku master; heroku open",
     "start": "node server/index.js"
   },
   "repository": {
