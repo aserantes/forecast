@@ -31,6 +31,7 @@ function Forecast(props) {
             alt={weatherDesc}
             src={`http://openweathermap.org/img/wn/${weatherIcon}@2x.png`}
             className={classes.avatar}
+            variant='rounded'
           />
         }
         title={`Weather in ${cityName} (${country}) • ${today}`}
