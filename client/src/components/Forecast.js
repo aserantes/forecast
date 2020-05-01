@@ -13,7 +13,7 @@ function Forecast(props) {
   const classes = useStyles();
   const { forecast } = props;
   const { main, name: cityName, weather, coord, sys } = forecast;
-  const { sunrise, sunset } = sys;
+  const { sunrise, sunset, country } = sys;
   const data = { ...main, sunrise, sunset };
   const { main: weatherMain, description: weatherDesc, icon: weatherIcon } = weather[0];
   const { lon, lat } = coord;
@@ -33,7 +33,7 @@ function Forecast(props) {
             className={classes.avatar}
           />
         }
-        title={`Weather in ${cityName} - ${today}`}
+        title={`Weather in ${cityName} (${country}) • ${today}`}
         subheader={`${weatherMain} (${weatherDesc})`}
       />
       <Divider light variant='middle' />

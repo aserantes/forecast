@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { getLocalState } from '../helpers';
 
 const initialState = {
   prefersDarkMode: false,
   prefersCelcius: true,
-  inputValue: '',
-  previousCities: []
+  previousCities: [],
+  ...getLocalState(),
+  inputValue: ''
 };
 
 const uiSlice = createSlice({
