@@ -34,8 +34,6 @@ function App() {
               </Grid>
               <Grid item xs={12}>
                 <Input />
-              </Grid>
-              <Grid item xs={12}>
                 <InputResults />
               </Grid>
               <Grid item xs={12}>
