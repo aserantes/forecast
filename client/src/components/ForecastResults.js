@@ -33,7 +33,7 @@ function ForecastResults() {
       if (fetchState === 'pending') {
         return (
           <Grid container justify='center'>
-            <CircularProgress disableShrink />
+            <CircularProgress />
           </Grid>
         );
       }
