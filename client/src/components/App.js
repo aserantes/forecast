@@ -34,9 +34,9 @@ function App() {
               </Grid>
               <Grid item xs={12}>
                 <Input />
-                <InputResults />
               </Grid>
               <Grid item xs={12}>
+                <InputResults />
                 <ForecastResults />
               </Grid>
             </Grid>

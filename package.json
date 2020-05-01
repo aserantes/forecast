@@ -7,7 +7,8 @@
     "client": "cd client && yarn start",
     "server": "cd server && node index.js",
     "dev": "concurrently \"yarn run server\" \"yarn run client\"",
-    "start": "node server/server.js"
+    "deploy": "cd client && yarn build && cd .. && rm -r server/build && mv -f client/build server && cd server && git status && git add . && git commit -m\"automatic deploy\" && git push origin master && git push heroku master && heroku open",
+    "start": "node server/index.js"
   },
   "repository": {
     "type": "git",
@@ -25,5 +26,10 @@
   },
   "devDependencies": {
     "concurrently": "^5.1.0"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
   }
 }
