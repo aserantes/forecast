@@ -7,7 +7,7 @@
     "client": "cd client && yarn start",
     "server": "cd server && node index.js",
     "dev": "concurrently \"yarn run server\" \"yarn run client\"",
-    "start": "node server/index.js"
+    "deploy": "cd client && yarn build && mv "
   },
   "repository": {
     "type": "git",
@@ -25,9 +25,5 @@
   },
   "devDependencies": {
     "concurrently": "^5.1.0"
-  },
-  "dependencies": {
-    "axios": "^0.19.2",
-    "express": "^4.17.1"
   }
 }
