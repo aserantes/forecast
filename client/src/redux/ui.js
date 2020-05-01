@@ -29,12 +29,16 @@ const uiSlice = createSlice({
         state.previousCities.unshift(action.payload);
         if (state.previousCities.length > 5) state.previousCities.pop();
       }
+    },
+    delPreviousCity: (state, action) => {
+      const cityIndexToDelete = action.payload;
+      state.previousCities.splice(cityIndexToDelete, 1);
     }
   }
 });
 
 const { actions, reducer } = uiSlice;
 
-export const { toggleDarkMode, toggleCelcius, setInputValue, addPreviousCities } = actions;
+export const { toggleDarkMode, toggleCelcius, setInputValue, addPreviousCities, delPreviousCity } = actions;
 
 export default reducer;

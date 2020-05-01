@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   makeStyles,
   Box,
@@ -24,6 +24,9 @@ import {
   Brightness3 as MoonIcon,
   Delete as DeleteIcon
 } from '@material-ui/icons';
+
+import { delPreviousCity, setInputValue } from '../redux/ui';
+import { setCityIdToSearch } from '../redux/forecast';
 
 import DarkModeToggler from './DarkModeToggler';
 import CelciusToggler from './CelciusToggler';
@@ -50,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
 
 function MainMenu() {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const previousCities = useSelector((state) => state.ui.previousCities);
@@ -62,12 +66,14 @@ function MainMenu() {
     setAnchorEl(null);
   };
 
-  const handleCityNameClick = () => {
-    window.alert('Name click!');
+  const handleCityNameClick = (name, id) => {
+    dispatch(setInputValue(name));
+    dispatch(setCityIdToSearch(id));
+    handleClose();
   };
 
-  const handleCityDelClick = () => {
-    window.alert('Del click!');
+  const handleCityDelClick = (index) => {
+    dispatch(delPreviousCity(index));
   };
 
   return (
@@ -124,11 +130,11 @@ function MainMenu() {
         </List>
         {previousCities.length > 0 && <Divider /> && (
           <List subheader={<ListSubheader>PREVIOUS CITIES</ListSubheader>}>
-            {previousCities.map((prevCity) => (
-              <MenuItem key={prevCity.id} onClick={handleCityNameClick}>
+            {previousCities.map((prevCity, index) => (
+              <MenuItem key={prevCity.id} onClick={() => handleCityNameClick(prevCity.name, prevCity.id)}>
                 <ListItemText>{prevCity.name}</ListItemText>
                 <ListItemSecondaryAction>
-                  <IconButton edge='end' aria-label='delete' onClick={handleCityDelClick}>
+                  <IconButton edge='end' aria-label='delete' onClick={() => handleCityDelClick(index)}>
                     <DeleteIcon />
                   </IconButton>
                 </ListItemSecondaryAction>
