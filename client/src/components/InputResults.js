@@ -18,7 +18,6 @@ function InputResults() {
   const response = useSelector((state) => state.cities.response);
   const cityNameToSearch = useSelector((state) => state.cities.cityNameToSearch);
   const fetchState = useSelector((state) => state.cities.fetchState);
-  const inputValue = useSelector((state) => state.ui.inputValue);
 
   useEffect(() => {
     if (cityNameToSearch) {
@@ -33,14 +32,14 @@ function InputResults() {
           if (response.length) {
             return <CityList cities={response} onCityClick={handleCityClick} />;
           }
-          return <Alert severity='info'>No cities found using &quot;{inputValue}&quot;.</Alert>;
+          return <Alert severity='info'>No cities found using &quot;{cityNameToSearch}&quot;.</Alert>;
         }
         return <Alert severity='error'>{response.message}</Alert>;
       }
       if (fetchState === 'pending') {
         return (
           <Grid container justify='center'>
-            <CircularProgress disableShrink />
+            <CircularProgress />
           </Grid>
         );
       }
