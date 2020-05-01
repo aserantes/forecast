@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardHeader, CardContent, CardMedia, Avatar, makeStyles, Divider, colors } from '@material-ui/core';
 import WeatherData from './WeatherData';
-import { getDate } from '../helpers';
+import { getLocalDateTime } from '../helpers';
 
 const useStyles = makeStyles(() => ({
   avatar: {
@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
 function Forecast(props) {
   const classes = useStyles();
   const { forecast } = props;
-  const { main, name: cityName, weather, coord, sys } = forecast;
+  const { main, name: cityName, weather, coord, sys, timezone: timeZone } = forecast;
   const { sunrise, sunset, country } = sys;
   const data = { ...main, sunrise, sunset };
   const { main: weatherMain, description: weatherDesc, icon: weatherIcon } = weather[0];
@@ -22,7 +22,6 @@ function Forecast(props) {
   const publicApiKey = 'AIzaSyATSrlXeexQILWJpBpOehRMdeVeRowLq70';
   const mapUrl = `${googleMapStaticUrl}?center=${lat},${lon}&zoom=10&scale=1&size=520x200&maptype=hybrid&key=${publicApiKey}`;
 
-  const today = getDate(Date.now());
   return (
     <Card>
       <CardHeader
@@ -33,8 +32,8 @@ function Forecast(props) {
             className={classes.avatar}
           />
         }
-        title={`Weather in ${cityName} (${country}) • ${today}`}
-        subheader={`${weatherMain} (${weatherDesc})`}
+        title={`Weather in ${cityName} (${country})`}
+        subheader={`${weatherMain} (${weatherDesc}) • Local Time: ${getLocalDateTime(timeZone)}`}
       />
       <Divider light variant='middle' />
       <CardContent>
