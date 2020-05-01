@@ -2,10 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { Box } from '@material-ui/core';
-import { k2c, k2f } from '../helpers/tempConverter';
+import { getTime, k2c, k2f } from '../helpers';
 
 function WeatherData({ data }) {
-  const { temp, pressure, humidity, temp_min: minTemp, temp_max: maxTemp } = data;
+  const { temp, pressure, humidity, temp_min: minTemp, temp_max: maxTemp, sunrise, sunset } = data;
   const prefersCelcius = useSelector((state) => state.ui.prefersCelcius);
   const convertedTemp = prefersCelcius ? k2c(temp) : k2f(temp);
   const convertedMinTemp = prefersCelcius ? k2c(minTemp) : k2f(minTemp);
@@ -26,12 +26,22 @@ function WeatherData({ data }) {
       </Box>
       <Box flexGrow={1} display='flex' flexDirection='column'>
         <Box display='flex' flexDirection='row'>
-          <Box fontWeight='fontWeightBold'>pressure: </Box>
+          <Box fontWeight='fontWeightBold'>pressure:&nbsp;</Box>
           <Box>{pressure} hPa</Box>
         </Box>
         <Box display='flex' flexDirection='row'>
-          <Box fontWeight='fontWeightBold'>humidity: </Box>
+          <Box fontWeight='fontWeightBold'>humidity:&nbsp;</Box>
           <Box>{humidity}%</Box>
+        </Box>
+      </Box>
+      <Box flexGrow={1} display='flex' flexDirection='column'>
+        <Box display='flex' flexDirection='row'>
+          <Box fontWeight='fontWeightBold'>dawn:&nbsp;</Box>
+          <Box>{getTime(sunrise)}</Box>
+        </Box>
+        <Box display='flex' flexDirection='row'>
+          <Box fontWeight='fontWeightBold'>dusk:&nbsp;</Box>
+          <Box>{getTime(sunset)}</Box>
         </Box>
       </Box>
     </Box>
