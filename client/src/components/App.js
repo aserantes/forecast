@@ -1,9 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { Container, Grid, Box } from '@material-ui/core';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import { Container, Grid, Box, createMuiTheme, ThemeProvider, CssBaseline } from '@material-ui/core';
 import 'typeface-roboto';
 
 import Input from './Input';

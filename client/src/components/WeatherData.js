@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { Box } from '@material-ui/core';
+import { Box, Grid, Typography } from '@material-ui/core';
 import { getTime, k2c, k2f } from '../helpers';
 
 function WeatherData({ data }) {
@@ -12,17 +12,17 @@ function WeatherData({ data }) {
   const convertedMaxTemp = prefersCelcius ? k2c(maxTemp) : k2f(maxTemp);
 
   return (
-    <Box display='flex' fontFamily='Monospace'>
-      <Box fontSize='24px'>{convertedTemp}&nbsp;</Box>
+    <Grid container>
+      <Typography component='span'>{convertedTemp}&nbsp;</Typography>
       <Box flexGrow={1}>
         <Box display='flex'>
-          <Box color='primary.light'>HI:&nbsp;</Box>
-          {convertedMaxTemp}
+          <Typography component='span'>Max:&nbsp;</Typography>
+          <Typography component='span'> {convertedMaxTemp}</Typography>
         </Box>
-        <Box display='flex'>
-          <Box color='secondary.light'>LO:&nbsp;</Box>
-          {convertedMinTemp}
-        </Box>
+        <Grid item>
+          <Typography component='span'>Min:&nbsp;</Typography>
+          <Typography component='span'> {convertedMinTemp}</Typography>
+        </Grid>
       </Box>
       <Box flexGrow={1} display='flex' flexDirection='column'>
         <Box display='flex' flexDirection='row'>
@@ -44,7 +44,7 @@ function WeatherData({ data }) {
           <Box>{getTime(sunset)}</Box>
         </Box>
       </Box>
-    </Box>
+    </Grid>
   );
 }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Card,
   CardHeader,
@@ -7,13 +7,25 @@ import {
   Avatar,
   makeStyles,
   Divider,
-  Typography,
-  colors
+  Grid,
+  colors,
+  Grow,
+  Fade,
+  Collapse
 } from '@material-ui/core';
 import WeatherData from './WeatherData';
 import { getLocalDateTime } from '../helpers';
 
 const useStyles = makeStyles((theme) => ({
+  cardHeaderContent: {
+    minWidth: '0'
+  },
+  cardHeaderTitle: {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    minWidth: '0'
+  },
   avatar: {
     backgroundColor: colors.grey[400],
     width: theme.spacing(4),
@@ -22,12 +34,11 @@ const useStyles = makeStyles((theme) => ({
   title: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    fontSize: '14px',
-    fontWeight: 'bold',
-    whiteSpace: 'nowrap',
-    textAlign: 'center',
-    padding: theme.spacing(2),
-    paddingBottom: 0
+    whiteSpace: 'nowrap'
+  },
+  img: {
+    width: '48px',
+    height: '48px'
   }
 }));
 
@@ -37,34 +48,76 @@ function Forecast(props) {
   const { main, name: cityName, weather, coord, sys, timezone: timeZone } = forecast;
   const { sunrise, sunset, country } = sys;
   const data = { ...main, sunrise, sunset };
-  const { main: weatherMain, description: weatherDesc, icon: weatherIcon } = weather[0];
+  const { main: weatherMain, description: weatherDesc, icon: Weather } = weather[0];
   const { lon, lat } = coord;
+
+  const [showMap, setShowMap] = useState(false);
+  const handleShowMap = () => {
+    setShowMap(true);
+  };
+
+  const [showFlag, setShowFlag] = useState(false);
+  const handleShowFlag = () => {
+    setShowFlag(true);
+  };
+
+  const [showWeather, setShowWeather] = useState(false);
+  const handleShowWeather = () => {
+    setShowWeather(true);
+  };
 
   const googleMapStaticUrl = 'https://maps.googleapis.com/maps/api/staticmap';
   const publicApiKey = 'AIzaSyATSrlXeexQILWJpBpOehRMdeVeRowLq70';
-  const mapUrl = `${googleMapStaticUrl}?center=${lat},${lon}&zoom=10&scale=1&size=520x300&maptype=hybrid&key=${publicApiKey}`;
+  const mapUrl = `${googleMapStaticUrl}?center=${lat},${lon}&zoom=10&scale=1&size=568x568&maptype=hybrid&key=${publicApiKey}`;
 
   return (
-    <Card>
-      <Typography className={classes.title}>{`Weather in ${cityName} (${country})`}</Typography>
-      <CardHeader
-        avatar={
-          <Avatar
-            alt={weatherDesc}
-            src={`http://openweathermap.org/img/wn/${weatherIcon}@2x.png`}
-            className={classes.avatar}
-          />
-        }
-        title={`${weatherMain} (${weatherDesc})`}
-        subheader={`${getLocalDateTime(timeZone)}`}
-      />
+    <Fade in>
+      <Card>
+        <Grid container spacing={0}>
+          <Grid item xs={12} sm={6}>
+            <CardHeader
+              classes={{ content: classes.cardHeaderContent, title: classes.cardHeaderTitle }}
+              avatar={
+                <Grow in={showFlag}>
+                  <Avatar
+                    alt={`country flag of ${cityName}`}
+                    src={`https://www.countryflags.io/${country}/flat/48.png`}
+                    classes={{ root: classes.avatar, img: classes.img }}
+                    onLoad={handleShowFlag}
+                  />
+                </Grow>
+              }
+              title={`Weather in ${cityName}`}
+              subheader={`${country}`}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <CardHeader
+              avatar={
+                <Grow in={showWeather}>
+                  <Avatar
+                    alt={weatherDesc}
+                    src={`http://openweathermap.org/img/wn/${Weather}@2x.png`}
+                    classes={{ root: classes.avatar }}
+                    onLoad={handleShowWeather}
+                  />
+                </Grow>
+              }
+              title={`${weatherMain} (${weatherDesc})`}
+              subheader={`${getLocalDateTime(timeZone)}`}
+            />
+          </Grid>
+        </Grid>
 
-      <Divider light variant='middle' />
-      <CardContent>
-        <WeatherData data={data} />
-      </CardContent>
-      <CardMedia component='img' src={mapUrl} />
-    </Card>
+        <Divider light variant='middle' />
+        <CardContent>
+          <WeatherData data={data} />
+        </CardContent>
+        <Collapse in={showMap} timeout='auto'>
+          <CardMedia component='img' src={mapUrl} onLoad={handleShowMap} />
+        </Collapse>
+      </Card>
+    </Fade>
   );
 }
 
