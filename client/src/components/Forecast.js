@@ -20,7 +20,7 @@ function Forecast(props) {
 
   const googleMapStaticUrl = 'https://maps.googleapis.com/maps/api/staticmap';
   const publicApiKey = 'AIzaSyATSrlXeexQILWJpBpOehRMdeVeRowLq70';
-  const mapUrl = `${googleMapStaticUrl}?center=${lat},${lon}&zoom=10&scale=1&size=520x200&maptype=hybrid&key=${publicApiKey}`;
+  const mapUrl = `${googleMapStaticUrl}?center=${lat},${lon}&zoom=10&scale=1&size=520x300&maptype=hybrid&key=${publicApiKey}`;
 
   return (
     <Card>

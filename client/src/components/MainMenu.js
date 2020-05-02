@@ -5,7 +5,6 @@ import {
   Box,
   IconButton,
   Avatar,
-  MenuItem,
   ListItem,
   Menu,
   List,
@@ -13,7 +12,6 @@ import {
   ListItemText,
   ListItemSecondaryAction,
   ListSubheader,
-  Typography,
   Paper,
   Toolbar
 } from '@material-ui/core';
@@ -22,7 +20,8 @@ import {
   Menu as MenuIcon,
   Brightness5 as SunIcon,
   Brightness3 as MoonIcon,
-  Delete as DeleteIcon
+  Delete as DeleteIcon,
+  FiberManualRecord as DotIcon
 } from '@material-ui/icons';
 
 import { delPreviousCity, setInputValue, setCityIdToSearch } from '../redux';
@@ -35,20 +34,28 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(4),
     height: theme.spacing(4)
   },
-  item: {
-    minWidth: '300px'
-  },
-  menuButton: {
-    marginRight: theme.spacing(2)
-  },
   title: {
-    fontWeight: 'bold',
-    fontSize: '14'
+    fontSize: '18px'
   },
   dot: {
-    margin: '2px'
+    margin: '4px',
+    fontSize: '8px'
+  },
+  list: {
+    minWidth: '288px'
+  },
+  root: {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    maxWidth: '224px'
   }
 }));
+
+/* white-space: 'nowrap',
+overflow: 'hidden',
+text-overflow: 'ellipsis',
+font-size: '0.9rem' */
 
 function MainMenu() {
   const classes = useStyles();
@@ -77,32 +84,25 @@ function MainMenu() {
 
   return (
     <Paper position='static' color='primary'>
-      <Toolbar>
-        <IconButton
-          edge='start'
-          aria-label='menu1'
-          aria-controls='menu1'
-          aria-haspopup='true'
-          onClick={handleMenuClick}
-          className={classes.menuButton}
-        >
+      <Toolbar disableGutters>
+        <IconButton aria-label='menu1' aria-controls='menu1' aria-haspopup='true' onClick={handleMenuClick}>
           <MenuIcon />
         </IconButton>
-        <Typography className={classes.title} component='span'>
+        <Box fontStyle='italic' fontWeight='bold' className={classes.title} component='span'>
           WEE
-        </Typography>
-        <Typography className={classes.dot} variant='h3' component='span' color='secondary'>
-          ·
-        </Typography>
-        <Typography component='span'>WEATHER</Typography>
-        <Typography className={classes.dot} variant='h3' component='span' color='primary'>
-          ·
-        </Typography>
-        <Typography component='span'>APP</Typography>
+        </Box>
+        <DotIcon className={classes.dot} color='secondary' />
+        <Box fontStyle='italic' fontWeight='bold' className={classes.title} component='span'>
+          WEATHER
+        </Box>
+        <DotIcon className={classes.dot} color='primary' />
+        <Box fontStyle='italic' fontWeight='bold' className={classes.title} component='span'>
+          APP
+        </Box>
       </Toolbar>
       <Menu id='menu1' anchorEl={anchorEl} keepMounted open={open} onClose={handleClose}>
         <List subheader={<ListSubheader>SETTINGS</ListSubheader>}>
-          <ListItem className={classes.item}>
+          <ListItem>
             <ListItemText>Dark Mode</ListItemText>
             <Avatar className={classes.small}>
               <SunIcon />
@@ -128,16 +128,18 @@ function MainMenu() {
           </ListItem>
         </List>
         {previousCities.length > 0 && <Divider /> && (
-          <List subheader={<ListSubheader>PREVIOUS CITIES</ListSubheader>}>
+          <List dense subheader={<ListSubheader>PREVIOUS CITIES</ListSubheader>}>
             {previousCities.map((prevCity, index) => (
-              <MenuItem key={prevCity.id} onClick={() => handleCityNameClick(prevCity.name, prevCity.id)}>
-                <ListItemText>{prevCity.name}</ListItemText>
+              <ListItem button key={prevCity.id} onClick={() => handleCityNameClick(prevCity.name, prevCity.id)}>
+                <ListItemText disableTypography classes={{ root: classes.root }}>
+                  {prevCity.name}
+                </ListItemText>
                 <ListItemSecondaryAction>
                   <IconButton edge='end' aria-label='delete' onClick={() => handleCityDelClick(index)}>
                     <DeleteIcon />
                   </IconButton>
                 </ListItemSecondaryAction>
-              </MenuItem>
+              </ListItem>
             ))}
           </List>
         )}

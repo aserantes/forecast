@@ -17,7 +17,7 @@ function CityList(props) {
   const { cities, onCityClick } = props;
 
   return (
-    <List className='List' height={300} itemCount={cities.length} itemSize={40} itemData={{ cities, onCityClick }}>
+    <List className='List' height={300} itemCount={cities.length} itemSize={36} itemData={{ cities, onCityClick }}>
       {Row}
     </List>
   );

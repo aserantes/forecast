@@ -26,7 +26,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline>
-        <Container maxWidth='sm'>
+        <Container maxWidth='sm' disableGutters>
           <Box m={2}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
