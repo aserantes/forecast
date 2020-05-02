@@ -101,7 +101,7 @@ function MainMenu() {
         </Box>
       </Toolbar>
       <Menu id='menu1' anchorEl={anchorEl} keepMounted open={open} onClose={handleClose}>
-        <List subheader={<ListSubheader>SETTINGS</ListSubheader>}>
+        <List className={classes.list} subheader={<ListSubheader>SETTINGS</ListSubheader>}>
           <ListItem>
             <ListItemText>Dark Mode</ListItemText>
             <Avatar className={classes.small}>

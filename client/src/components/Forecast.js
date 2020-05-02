@@ -1,11 +1,33 @@
 import React from 'react';
-import { Card, CardHeader, CardContent, CardMedia, Avatar, makeStyles, Divider, colors } from '@material-ui/core';
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardMedia,
+  Avatar,
+  makeStyles,
+  Divider,
+  Typography,
+  colors
+} from '@material-ui/core';
 import WeatherData from './WeatherData';
 import { getLocalDateTime } from '../helpers';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   avatar: {
-    backgroundColor: colors.grey[400]
+    backgroundColor: colors.grey[400],
+    width: theme.spacing(4),
+    height: theme.spacing(4)
+  },
+  title: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    fontSize: '14px',
+    fontWeight: 'bold',
+    whiteSpace: 'nowrap',
+    textAlign: 'center',
+    padding: theme.spacing(2),
+    paddingBottom: 0
   }
 }));
 
@@ -24,6 +46,7 @@ function Forecast(props) {
 
   return (
     <Card>
+      <Typography className={classes.title}>{`Weather in ${cityName} (${country})`}</Typography>
       <CardHeader
         avatar={
           <Avatar
@@ -32,9 +55,10 @@ function Forecast(props) {
             className={classes.avatar}
           />
         }
-        title={`Weather in ${cityName} (${country})`}
-        subheader={`${weatherMain} (${weatherDesc}) • Local Time: ${getLocalDateTime(timeZone)}`}
+        title={`${weatherMain} (${weatherDesc})`}
+        subheader={`${getLocalDateTime(timeZone)}`}
       />
+
       <Divider light variant='middle' />
       <CardContent>
         <WeatherData data={data} />

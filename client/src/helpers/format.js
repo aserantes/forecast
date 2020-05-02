@@ -1,9 +1,10 @@
 const dateOptions = {
   year: 'numeric',
-  month: '2-digit',
+  month: 'short',
   day: '2-digit',
-  hour: 'numeric',
+  hour: '2-digit',
   minute: '2-digit',
+  timeZoneName: 'short',
   hour12: false
 };
 
@@ -13,7 +14,7 @@ export const getLocalDateTime = (timeZone) => {
   const lclNow = new Date();
   const utcNow = lclNow.getTime() + lclNow.getTimezoneOffset() * 60000;
   const newNow = new Date(utcNow + timeZone * 1000);
-  return new Intl.DateTimeFormat('UTC', dateOptions).format(newNow);
+  return new Intl.DateTimeFormat(undefined, dateOptions).format(newNow);
 };
 
-export const getTime = (dateTime) => new Intl.DateTimeFormat('default', timeOptions).format(dateTime * 1000);
+export const getTime = (dateTime) => new Intl.DateTimeFormat(undefined, timeOptions).format(dateTime * 1000);

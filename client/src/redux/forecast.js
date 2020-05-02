@@ -4,7 +4,7 @@ import API from '../API/forecast';
 const initialState = {
   fetchState: null,
   response: null,
-  cityIdToSearch: null
+  cityIdToSearch: 3433955
 };
 
 export const fetchForecast = createAsyncThunk('forecast/fetchForecast', (id) =>
