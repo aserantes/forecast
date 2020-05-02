@@ -84,7 +84,7 @@ function MainMenu() {
 
   return (
     <Paper position='static' color='primary'>
-      <Toolbar disableGutters>
+      <Toolbar disableGutters variant='dense'>
         <IconButton aria-label='menu1' aria-controls='menu1' aria-haspopup='true' onClick={handleMenuClick}>
           <MenuIcon />
         </IconButton>
