@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Alert } from '@material-ui/lab';
-import { CircularProgress, Grid } from '@material-ui/core';
+import { CircularProgress, Grid, Grow, Fade } from '@material-ui/core';
 import { fetchForecast } from '../redux';
 import Forecast from './Forecast';
 
@@ -26,15 +26,25 @@ function ForecastResults() {
           if (response.coord) {
             return <Forecast forecast={response} />;
           }
-          return <Alert severity='info'>No forecast found for City with id &quot;{cityIdToSearch}&quot;.</Alert>;
+          return (
+            <Fade in>
+              <Alert severity='info'>No forecast found for City with id &quot;{cityIdToSearch}&quot;.</Alert>
+            </Fade>
+          );
         }
-        return <Alert severity='error'>{response.message}</Alert>;
+        return (
+          <Fade in>
+            <Alert severity='error'>{response.message}</Alert>
+          </Fade>
+        );
       }
       if (fetchState === 'pending') {
         return (
-          <Grid container justify='center'>
-            <CircularProgress />
-          </Grid>
+          <Grow in>
+            <Grid container justify='center'>
+              <CircularProgress />
+            </Grid>
+          </Grow>
         );
       }
     }

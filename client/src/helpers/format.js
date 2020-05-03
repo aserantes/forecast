@@ -18,8 +18,3 @@ export const getLocalDateTime = (timeZone) => {
 };
 
 export const getTime = (dateTime) => new Intl.DateTimeFormat(undefined, timeOptions).format(dateTime * 1000);
-
-export const getRegion = (countryCode) => {
-  const locale = new Intl.Locale(countryCode);
-  console.log(locale);
-};

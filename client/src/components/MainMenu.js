@@ -34,9 +34,6 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(4),
     height: theme.spacing(4)
   },
-  title: {
-    fontSize: '18px'
-  },
   dot: {
     margin: '4px',
     fontSize: '8px'
@@ -51,11 +48,6 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '224px'
   }
 }));
-
-/* white-space: 'nowrap',
-overflow: 'hidden',
-text-overflow: 'ellipsis',
-font-size: '0.9rem' */
 
 function MainMenu() {
   const classes = useStyles();
@@ -88,17 +80,16 @@ function MainMenu() {
         <IconButton aria-label='menu1' aria-controls='menu1' aria-haspopup='true' onClick={handleMenuClick}>
           <MenuIcon />
         </IconButton>
-        <Box fontStyle='italic' fontWeight='bold' className={classes.title} component='span'>
-          WEE
-        </Box>
+
         <DotIcon className={classes.dot} color='secondary' />
-        <Box fontStyle='italic' fontWeight='bold' className={classes.title} component='span'>
+        <Box fontWeight='bold' fontStyle='italic' fontSize='18px' component='span'>
           WEATHER
         </Box>
-        <DotIcon className={classes.dot} color='primary' />
-        <Box fontStyle='italic' fontWeight='bold' className={classes.title} component='span'>
+        <DotIcon className={classes.dot} color='disabled' />
+        <Box fontWeight='bold' fontStyle='italic' fontSize='18px' component='span'>
           APP
         </Box>
+        <DotIcon className={classes.dot} color='primary' />
       </Toolbar>
       <Menu id='menu1' anchorEl={anchorEl} keepMounted open={open} onClose={handleClose}>
         <List className={classes.list} subheader={<ListSubheader>SETTINGS</ListSubheader>}>

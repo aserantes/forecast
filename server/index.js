@@ -7,6 +7,7 @@ const express = require('express');
 const axios = require('axios');
 const path = require('path');
 const cities = require('./cities.json');
+const countries = require('./countries.json');
 
 const app = express();
 
@@ -37,7 +38,13 @@ app.get('/forecast', (req, res) => {
         appid
       }
     })
-    .then((response) => res.status(response.status).send(response.data))
+    .then((response) => {
+      const responseCountryCode = response.data.sys.country;
+      const countryData = countries.filter((country) =>
+        country.alpha2Code.toLowerCase().includes(responseCountryCode.toLowerCase())
+      )[0];
+      res.status(response.status).send(JSON.stringify({ ...response.data, extraData: { ...countryData } }));
+    })
     .catch((error) => {
       if (error.response) {
         res.status(error.response.status).send(error.response.data);

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Alert } from '@material-ui/lab';
-import { CircularProgress, Grid } from '@material-ui/core';
+import { CircularProgress, Grid, Grow, Fade } from '@material-ui/core';
 import { citiesReset, fetchCities, setInputValue, addPreviousCities, setCityIdToSearch } from '../redux';
 import CityList from './CityList';
 
@@ -32,15 +32,25 @@ function InputResults() {
           if (response.length) {
             return <CityList cities={response} onCityClick={handleCityClick} />;
           }
-          return <Alert severity='info'>No cities found using &quot;{cityNameToSearch}&quot;.</Alert>;
+          return (
+            <Fade in>
+              <Alert severity='info'>No cities found using &quot;{cityNameToSearch}&quot;.</Alert>
+            </Fade>
+          );
         }
-        return <Alert severity='error'>{response.message}</Alert>;
+        return (
+          <Fade in>
+            <Alert severity='error'>{response.message}</Alert>
+          </Fade>
+        );
       }
       if (fetchState === 'pending') {
         return (
-          <Grid container justify='center'>
-            <CircularProgress />
-          </Grid>
+          <Grow in>
+            <Grid container justify='center'>
+              <CircularProgress />
+            </Grid>
+          </Grow>
         );
       }
     }

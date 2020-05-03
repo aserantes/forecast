@@ -9,7 +9,6 @@ import {
   Divider,
   Grid,
   colors,
-  Grow,
   Fade,
   Collapse
 } from '@material-ui/core';
@@ -35,19 +34,16 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap'
-  },
-  img: {
-    width: '48px',
-    height: '48px'
   }
 }));
 
 function Forecast(props) {
   const classes = useStyles();
   const { forecast } = props;
-  const { main, name: cityName, weather, coord, sys, timezone: timeZone } = forecast;
-  const { sunrise, sunset, country } = sys;
-  const data = { ...main, sunrise, sunset };
+  const { main, name: cityName, weather, coord, sys, timezone: timeZone, extraData } = forecast;
+  const { name: country, flag, region, subregion } = extraData;
+  const { sunrise, sunset } = sys;
+  const data = { ...main, sunrise, sunset, flag, region, subregion };
   const { main: weatherMain, description: weatherDesc, icon: Weather } = weather[0];
   const { lon, lat } = coord;
 
@@ -78,14 +74,14 @@ function Forecast(props) {
             <CardHeader
               classes={{ content: classes.cardHeaderContent, title: classes.cardHeaderTitle }}
               avatar={
-                <Grow in={showFlag}>
+                <Fade in={showFlag}>
                   <Avatar
                     alt={`country flag of ${cityName}`}
-                    src={`https://www.countryflags.io/${country}/flat/48.png`}
-                    classes={{ root: classes.avatar, img: classes.img }}
+                    src={flag}
+                    classes={{ root: classes.avatar }}
                     onLoad={handleShowFlag}
                   />
-                </Grow>
+                </Fade>
               }
               title={`Weather in ${cityName}`}
               subheader={`${country}`}
@@ -94,14 +90,14 @@ function Forecast(props) {
           <Grid item xs={12} sm={6}>
             <CardHeader
               avatar={
-                <Grow in={showWeather}>
+                <Fade in={showWeather}>
                   <Avatar
                     alt={weatherDesc}
                     src={`http://openweathermap.org/img/wn/${Weather}@2x.png`}
                     classes={{ root: classes.avatar }}
                     onLoad={handleShowWeather}
                   />
-                </Grow>
+                </Fade>
               }
               title={`${weatherMain} (${weatherDesc})`}
               subheader={`${getLocalDateTime(timeZone)}`}
