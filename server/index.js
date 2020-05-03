@@ -19,11 +19,16 @@ const appid = process.env.API_KEY;
 // This endpoint handles city search by name.
 app.get('/cities', (req, res) => {
   const query = req.query.q;
-  let result = [];
+  const result = [];
   if (query) {
-    result = cities.filter((city) => city.name.toLowerCase().includes(query.toLowerCase()));
+    const cityMatches = cities.filter((city) => city.name.toLowerCase().includes(query.toLowerCase()));
+    cityMatches.forEach((cityMatch) => {
+      const { country: code } = cityMatch;
+      const extraData = countries.filter((country) => country.alpha2Code.toLowerCase().includes(code.toLowerCase()))[0];
+      result.push({ ...cityMatch, flag: extraData.flag });
+    });
   }
-  res.status(200).send(result);
+  res.status(200).send(JSON.stringify(result));
 });
 
 // This endpoint proxies requests to openWeather to get current weather data by cityId

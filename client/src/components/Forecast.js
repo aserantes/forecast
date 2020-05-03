@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   cardHeaderContent: {
     minWidth: '0'
   },
-  cardHeaderTitle: {
+  cardHeaderText: {
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -72,7 +72,11 @@ function Forecast(props) {
         <Grid container spacing={0}>
           <Grid item xs={12} sm={6}>
             <CardHeader
-              classes={{ content: classes.cardHeaderContent, title: classes.cardHeaderTitle }}
+              classes={{
+                content: classes.cardHeaderContent,
+                title: classes.cardHeaderText,
+                subheader: classes.cardHeaderText
+              }}
               avatar={
                 <Fade in={showFlag}>
                   <Avatar

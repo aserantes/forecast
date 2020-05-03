@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 function City(props) {
   const { city, onCityClick } = props;
+  const { id, name, state, flag } = city;
   const [showFlag, setShowFlag] = useState(false);
 
   const useStyles = makeStyles({
@@ -26,22 +27,21 @@ function City(props) {
 
   return (
     <Fade in>
-      <ListItem button onClick={() => onCityClick(city.id, city.name)}>
+      <ListItem button onClick={() => onCityClick(id, name)}>
         <ListItemAvatar classes={{ root: classes.avatar }}>
           <Fade in={showFlag}>
             <Avatar
               className={classes.small}
-              variant='rounded'
-              size='small'
-              alt={`country flag of ${city.name}`}
-              src={`https://www.countryflags.io/${city.country}/shiny/24.png`}
+              variant='circle'
+              alt={`country flag of ${name}`}
+              src={flag}
               onLoad={() => setShowFlag(true)}
             />
           </Fade>
         </ListItemAvatar>
         <ListItemText disableTypography classes={{ root: classes.root }}>
-          {city.state && `${city.state} - `}
-          {city.name}
+          {state && `${state} - `}
+          {name}
         </ListItemText>
       </ListItem>
     </Fade>
