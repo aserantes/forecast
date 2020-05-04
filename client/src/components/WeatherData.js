@@ -48,7 +48,7 @@ const useStyles = makeStyles({
     flexBasis: '128px',
     justifyContent: 'center'
   },
-  specialValue: {
+  temp: {
     display: 'flex',
     fontSize: '38px',
     fontWeight: 'bold',
@@ -66,6 +66,7 @@ function WeatherData({ data }) {
   const classes = useStyles();
   const { temp, temp_min: minTemp, temp_max: maxTemp, sunrise, sunset, pressure, humidity } = data;
   const prefersCelcius = useSelector((state) => state.ui.prefersCelcius);
+
   const formattedTemp = prefersCelcius ? k2c(temp) : k2f(temp);
   const formattedMinTemp = prefersCelcius ? k2c(minTemp) : k2f(minTemp);
   const formattedMaxTemp = prefersCelcius ? k2c(maxTemp) : k2f(maxTemp);
@@ -79,7 +80,7 @@ function WeatherData({ data }) {
           <SvgIcon className={classes.icon} viewBox='0 0 32 32'>
             <path d={tempLevelIconPath} />
           </SvgIcon>
-          <Box classes={{ root: classes.specialValue }} component='span' color={tempLevelColor}>
+          <Box classes={{ root: classes.temp }} component='span' color={tempLevelColor}>
             {formattedTemp}
           </Box>
         </Grid>
