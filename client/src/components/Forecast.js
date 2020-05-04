@@ -31,7 +31,7 @@ const useStyles = makeStyles({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     minWidth: '0',
-    fontSize: '13px;'
+    fontSize: '12px;'
   },
   weatherAvatar: {
     backgroundColor: colors.grey[400],
