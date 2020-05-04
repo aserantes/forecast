@@ -28,6 +28,8 @@ const useStyles = makeStyles({
   },
   cardHeaderSubheader: {
     whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
     minWidth: '0',
     fontSize: '13px;'
   },
