@@ -80,7 +80,6 @@ function MainMenu() {
         <IconButton aria-label='menu1' aria-controls='menu1' aria-haspopup='true' onClick={handleMenuClick}>
           <MenuIcon />
         </IconButton>
-
         <DotIcon className={classes.dot} color='secondary' />
         <Box fontWeight='bold' fontStyle='italic' fontSize='18px' component='span'>
           WEATHER

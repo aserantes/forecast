@@ -33,20 +33,20 @@ function InputResults() {
             return <CityList cities={response} onCityClick={handleCityClick} />;
           }
           return (
-            <Fade in>
+            <Fade in timeout={1000}>
               <Alert severity='info'>No cities found using &quot;{cityNameToSearch}&quot;.</Alert>
             </Fade>
           );
         }
         return (
-          <Fade in>
+          <Fade in timeout={1000}>
             <Alert severity='error'>{response.message}</Alert>
           </Fade>
         );
       }
       if (fetchState === 'pending') {
         return (
-          <Grow in>
+          <Grow in timeout={1000}>
             <Grid container justify='center'>
               <CircularProgress />
             </Grid>

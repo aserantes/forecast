@@ -24,7 +24,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline>
-        <Fade in>
+        <Fade in timeout={1000}>
           <Container maxWidth='sm' disableGutters>
             <Box m={2}>
               <Grid container spacing={2}>

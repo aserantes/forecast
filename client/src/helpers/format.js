@@ -4,7 +4,6 @@ const dateOptions = {
   day: '2-digit',
   hour: '2-digit',
   minute: '2-digit',
-  timeZoneName: 'short',
   hour12: false
 };
 

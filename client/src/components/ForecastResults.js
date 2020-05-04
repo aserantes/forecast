@@ -27,20 +27,20 @@ function ForecastResults() {
             return <Forecast forecast={response} />;
           }
           return (
-            <Fade in>
+            <Fade in timeout={10000}>
               <Alert severity='info'>No forecast found for City with id &quot;{cityIdToSearch}&quot;.</Alert>
             </Fade>
           );
         }
         return (
-          <Fade in>
+          <Fade in timeout={1000}>
             <Alert severity='error'>{response.message}</Alert>
           </Fade>
         );
       }
       if (fetchState === 'pending') {
         return (
-          <Grow in>
+          <Grow in timeout={1000}>
             <Grid container justify='center'>
               <CircularProgress />
             </Grid>
