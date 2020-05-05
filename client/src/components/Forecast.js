@@ -8,7 +8,6 @@ import {
   makeStyles,
   Divider,
   Grid,
-  colors,
   Fade,
   Collapse
 } from '@material-ui/core';
@@ -34,7 +33,7 @@ const useStyles = makeStyles({
     fontSize: '12px;'
   },
   weatherAvatar: {
-    backgroundColor: colors.grey[400],
+    backgroundColor: 'rgba(127,127,127,1)',
     width: '40px',
     height: '40px'
   },
@@ -42,10 +41,20 @@ const useStyles = makeStyles({
     width: '40px',
     height: '40px'
   },
+  worldMapAvatar: {
+    margin: '8px',
+    width: '100px',
+    height: '100px',
+    position: 'absolute',
+    boxShadow: '0px 0px 4px rgba(127,127,127,0.5)'
+  },
   title: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap'
+  },
+  withBoxShadow: {
+    boxShadow: '0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)'
   }
 });
 
@@ -60,14 +69,15 @@ function Forecast(props) {
   const { main: weatherMain, description: weatherDesc, icon: Weather } = weather[0];
   const { lon, lat } = coord;
 
-  const [showMap, setShowMap] = useState(false);
+  const [showCityMap, setShowCityMap] = useState(false);
+  const [showWorldMap, setShowWorldMap] = useState(false);
   const [showFlag, setShowFlag] = useState(false);
   const [showWeather, setShowWeather] = useState(false);
 
   const googleMapStaticUrl = 'https://maps.googleapis.com/maps/api/staticmap';
   const publicApiKey = 'AIzaSyATSrlXeexQILWJpBpOehRMdeVeRowLq70';
-  const mapUrl = `${googleMapStaticUrl}?center=${lat},${lon}&zoom=10&scale=1&size=568x568&maptype=hybrid&key=${publicApiKey}`;
-
+  const cityMapUrl = `${googleMapStaticUrl}?zoom=10&scale=1&size=568x568&maptype=hybrid&markers=size:mid%7Ccolor:red%7C${lat},${lon}&key=${publicApiKey}`;
+  const worldMapUrl = `${googleMapStaticUrl}?zoom=1&scale=1&size=100x100&maptype=terrain&markers=size:tiny%7Ccolor:red%7C${lat},${lon}&key=${publicApiKey}`;
   return (
     <Fade in timeout={1000}>
       <Card>
@@ -86,11 +96,12 @@ function Forecast(props) {
                     src={flag}
                     classes={{ root: classes.flagAvatar }}
                     onLoad={() => setShowFlag(true)}
+                    className={classes.withBoxShadow}
                   />
                 </Fade>
               }
               title={`Weather in ${cityName}`}
-              subheader={`${country}`}
+              subheader={country}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -107,6 +118,7 @@ function Forecast(props) {
                     src={`http://openweathermap.org/img/wn/${Weather}@2x.png`}
                     classes={{ root: classes.weatherAvatar }}
                     onLoad={() => setShowWeather(true)}
+                    className={classes.withBoxShadow}
                   />
                 </Fade>
               }
@@ -119,8 +131,16 @@ function Forecast(props) {
         <CardContent>
           <WeatherData data={data} />
         </CardContent>
-        <Collapse in={showMap} timeout={1000}>
-          <CardMedia component='img' src={mapUrl} onLoad={() => setShowMap(true)} />
+        <Collapse in={showCityMap} timeout={1000} onEntered={() => setShowWorldMap(true)}>
+          <Fade in={showWorldMap} timeout={1000}>
+            <Avatar
+              alt='world map'
+              src={worldMapUrl}
+              classes={{ root: classes.worldMapAvatar }}
+              className={classes.withBoxShadow}
+            />
+          </Fade>
+          <CardMedia component='img' src={cityMapUrl} onLoad={() => setShowCityMap(true)} />
         </Collapse>
       </Card>
     </Fade>
