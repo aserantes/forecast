@@ -13,7 +13,8 @@ import {
   ListItemSecondaryAction,
   ListSubheader,
   Paper,
-  Toolbar
+  Toolbar,
+  Tooltip
 } from '@material-ui/core';
 
 import {
@@ -21,7 +22,8 @@ import {
   Brightness5 as SunIcon,
   Brightness3 as MoonIcon,
   Delete as DeleteIcon,
-  FiberManualRecord as DotIcon
+  FiberManualRecord as DotIcon,
+  GitHub as GitHubIcon
 } from '@material-ui/icons';
 
 import { delPreviousCity, setInputValue, setCityIdToSearch } from '../redux';
@@ -46,6 +48,9 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     maxWidth: '224px'
+  },
+  pushToRight: {
+    marginLeft: 'auto'
   }
 }));
 
@@ -89,6 +94,17 @@ function MainMenu() {
           APP
         </Box>
         <DotIcon className={classes.dot} color='primary' />
+        <Tooltip title='Go to repository' placement='left' arrow>
+          <IconButton
+            aria-label='github'
+            href='https://github.com/aserantes/forecast'
+            className={classes.pushToRight}
+            target='_blank'
+            rel='noopener'
+          >
+            <GitHubIcon />
+          </IconButton>
+        </Tooltip>
       </Toolbar>
       <Menu id='menu1' anchorEl={anchorEl} keepMounted open={open} onClose={handleClose}>
         <List className={classes.list} subheader={<ListSubheader>SETTINGS</ListSubheader>}>
