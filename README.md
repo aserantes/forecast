@@ -2,13 +2,15 @@
 
 _(a functional React/Redux skills demo app)_
 
+### > [Link to online production build](http://wee-weather-app.herokuapp.com/) <
+
 ### Frontend:
 
 - **Modern Redux**
   - react-redux: useSelector/useDispatch hooks
   - redux-toolkit: reduced boilerplate and tidy syntax with createSlice, configureStore, etc.
 - **Modern React**: 100% functional components with built-in and custom hooks.
-- **Material UI**: full usage of Material design with esponsive layout, global theme, darkMode, svg Icons, transitions, etc.
+- **Material UI**: full usage of Material design with responsive layout, global theme, darkMode, svg Icons, transitions, etc.
 - **react-window**: FixedSizeList for fast and performant long lists used for city search results.
 
 ### Backend:
@@ -20,6 +22,13 @@ _(a functional React/Redux skills demo app)_
   - additional data injection to api responses from local country data in JSON
   - environment variables for api keys security
   - server side error handling and reporting at frontend
+
+### Data Sources:
+
+- countries and cities extras/links to flags: local JSON in node
+- flags svg's from https://restcountries.eu/
+- weather: https://openweathermap.org/current (You will need to generate your own API KEY if you clone this repo)
+- maps: https://developers.google.com/maps/documentation/maps-static/intro?hl=de (You will need to generate your own API KEY if you clone this repo)
 
 ### Instructions
 
