@@ -58,7 +58,25 @@ app.get('/forecast', (req, res) => {
       } else {
         res.status(500).send(error.message);
       }
-      res.status(500).send(error.config);
+    });
+});
+
+// This endpoint proxies requests to ip-api to get the IP location information
+app.get('/v1/location', (req, res) => {
+  const url = 'http://ip-api.com/json/'; // ip-api url
+  axios
+    .get(url)
+    .then((response) => {
+      res.status(response.status).send(response.data);
+    })
+    .catch((error) => {
+      if (error.response) {
+        res.status(error.response.status).send(error.response.data);
+      } else if (error.request) {
+        res.status(400).send(error.message || error.request);
+      } else {
+        res.status(500).send(error.message);
+      }
     });
 });
 
