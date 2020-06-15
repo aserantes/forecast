@@ -8,6 +8,7 @@
     "server": "cd server && nodemon index.js",
     "dev": "concurrently \"yarn run server\" \"yarn run client\"",
     "build-and-move": "cd client; yarn build; cd ..; rm -r server/build; mv -f client/build server",
+    "heroku-postbuild": "cd client; yarn build; cd ..; rm -r server/build; mv -f client/build server",
     "start": "node server/index.js"
   },
   "repository": {
