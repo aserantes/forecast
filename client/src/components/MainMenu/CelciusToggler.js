@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Switch } from '@material-ui/core';
-import { toggleCelcius } from '../redux';
+import { toggleCelcius } from '../../redux';
 
 function CelciusToggler() {
   const dispatch = useDispatch();

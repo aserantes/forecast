@@ -4,22 +4,28 @@ import API from '../API/forecast';
 const initialState = {
   fetchState: null,
   response: null,
-  cityIdToSearch: null
+  cityToSearch: {
+    id: null,
+    name: null,
+    lon: null,
+    lat: null,
+    country: null
+  }
 };
 
-export const fetchForecast = createAsyncThunk('forecast/fetchForecast', (id) =>
-  API.get('/', { params: { id } })
+export const fetchForecast = createAsyncThunk('forecast/fetchForecast', (params) => {
+  return API.get('/', { params: { ...params } })
     .then((res) => res.data)
-    .catch((err) => err)
-);
+    .catch((err) => err);
+});
 
 const forecastSlice = createSlice({
   name: 'forecast',
   initialState,
   reducers: {
     forecastReset: () => initialState,
-    setCityIdToSearch: (state, action) => {
-      state.cityIdToSearch = action.payload;
+    setCityToSearch: (state, action) => {
+      state.cityToSearch = action.payload;
     }
   },
   extraReducers: {
@@ -35,6 +41,6 @@ const forecastSlice = createSlice({
 
 const { actions, reducer } = forecastSlice;
 
-export const { forecastReset, setCityIdToSearch } = actions;
+export const { forecastReset, setCityToSearch } = actions;
 
 export default reducer;

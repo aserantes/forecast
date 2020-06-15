@@ -2,39 +2,33 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Alert } from '@material-ui/lab';
 import { CircularProgress, Grid, Grow, Fade } from '@material-ui/core';
-import { citiesReset, fetchCities, setInputValue, addPreviousCities, setCityIdToSearch } from '../redux';
-import CityList from './CityList';
+import { fetchForecast } from '../../redux';
+import CityInfo from './CityInfo';
 
-function InputResults() {
+function WeatherSection() {
   const dispatch = useDispatch();
 
-  const handleCityClick = (id, name) => {
-    dispatch(setInputValue(name));
-    dispatch(addPreviousCities({ id, name }));
-    dispatch(citiesReset());
-    dispatch(setCityIdToSearch(id));
-  };
-
-  const response = useSelector((state) => state.cities.response);
+  const response = useSelector((state) => state.forecast.response);
+  const cityToSearch = useSelector((state) => state.forecast.cityToSearch);
+  const fetchState = useSelector((state) => state.forecast.fetchState);
   const cityNameToSearch = useSelector((state) => state.cities.cityNameToSearch);
-  const fetchState = useSelector((state) => state.cities.fetchState);
 
   useEffect(() => {
-    if (cityNameToSearch) {
-      dispatch(fetchCities(cityNameToSearch));
+    if (cityToSearch.id) {
+      dispatch(fetchForecast({ ...cityToSearch }));
     }
-  }, [cityNameToSearch, dispatch]);
+  }, [cityToSearch, cityToSearch.id, dispatch]);
 
   const renderComponent = () => {
-    if (fetchState !== 'idle') {
+    if (fetchState !== 'idle' && !cityNameToSearch) {
       if (fetchState === 'fulfilled') {
-        if (!response.name) {
-          if (response.length) {
-            return <CityList cities={response} onCityClick={handleCityClick} />;
+        if (!response.message) {
+          if (response.extraData) {
+            return <CityInfo response={response} />;
           }
           return (
             <Fade in timeout={1000}>
-              <Alert severity='info'>No cities found using &quot;{cityNameToSearch}&quot;.</Alert>
+              <Alert severity='info'>No forecast found.</Alert>
             </Fade>
           );
         }
@@ -60,4 +54,4 @@ function InputResults() {
   return renderComponent();
 }
 
-export default InputResults;
+export default WeatherSection;

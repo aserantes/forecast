@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   makeStyles,
@@ -26,7 +26,7 @@ import {
   GitHub as GitHubIcon
 } from '@material-ui/icons';
 
-import { delPreviousCity, setInputValue, setCityIdToSearch } from '../redux';
+import { delPreviousCity, setInputValue, setCityToSearch } from '../../redux';
 
 import DarkModeToggler from './DarkModeToggler';
 import CelciusToggler from './CelciusToggler';
@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
 function MainMenu() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const previousCities = useSelector((state) => state.ui.previousCities);
 
@@ -69,9 +69,9 @@ function MainMenu() {
     setAnchorEl(null);
   };
 
-  const handleCityNameClick = (name, id) => {
+  const handleCityNameClick = (id, name, lon, lat, country) => {
     dispatch(setInputValue(name));
-    dispatch(setCityIdToSearch(id));
+    dispatch(setCityToSearch({ id, name, lon, lat, country }));
     handleClose();
   };
 
@@ -136,7 +136,13 @@ function MainMenu() {
         {previousCities.length > 0 && <Divider /> && (
           <List dense subheader={<ListSubheader>PREVIOUS CITIES</ListSubheader>}>
             {previousCities.map((prevCity, index) => (
-              <ListItem button key={prevCity.id} onClick={() => handleCityNameClick(prevCity.name, prevCity.id)}>
+              <ListItem
+                button
+                key={prevCity.id}
+                onClick={() =>
+                  handleCityNameClick(prevCity.id, prevCity.name, prevCity.lon, prevCity.lat, prevCity.country)
+                }
+              >
                 <ListItemText disableTypography classes={{ root: classes.root }}>
                   {prevCity.name}
                 </ListItemText>

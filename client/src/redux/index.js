@@ -14,5 +14,5 @@ store.subscribe(() => {
 });
 
 export { fetchCities, citiesReset, setCityNameToSearch } from './cities';
-export { fetchForecast, forecastReset, setCityIdToSearch } from './forecast';
+export { fetchForecast, forecastReset, setCityToSearch } from './forecast';
 export { toggleDarkMode, toggleCelcius, setInputValue, addPreviousCities, delPreviousCity } from './ui';

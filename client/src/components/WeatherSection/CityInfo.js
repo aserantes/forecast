@@ -11,8 +11,8 @@ import {
   Fade,
   Collapse
 } from '@material-ui/core';
-import WeatherData from './WeatherData';
-import { getLocalDateTime } from '../helpers';
+import CurrentWeather from './CurrentWeather';
+import Forecast from './Forecast';
 
 const useStyles = makeStyles({
   cardHeaderContent: {
@@ -58,16 +58,16 @@ const useStyles = makeStyles({
   }
 });
 
-function Forecast(props) {
+function CityInfo(props) {
   const classes = useStyles();
-  const { forecast } = props;
-  const { main, name: cityName, weather, coord, sys, timezone: timezoneOffset, extraData } = forecast;
-  const { name: country, flag, region, subregion, timezones } = extraData;
+  const { response } = props;
+  const { extraData, forecast } = response;
+  const { name: country, cityName, flag, region, subregion, timezones, lat, lon, timezoneOffset, tz } = extraData;
   const timeZone = timezones[0];
-  const { sunrise, sunset } = sys;
-  const data = { ...main, sunrise, sunset, flag, region, subregion };
+  const { sunrise, weather, sunset, pressure, temp: mainTemp, humidity } = forecast[0];
+  const { min: minTemp, max: maxTemp } = mainTemp;
+  const data = { minTemp, maxTemp, sunrise, sunset, timezoneOffset, tz, flag, region, subregion, pressure, humidity };
   const { main: weatherMain, description: weatherDesc, icon: Weather } = weather[0];
-  const { lon, lat } = coord;
 
   const [showCityMap, setShowCityMap] = useState(false);
   const [showWorldMap, setShowWorldMap] = useState(false);
@@ -100,7 +100,7 @@ function Forecast(props) {
                   />
                 </Fade>
               }
-              title={`Weather in ${cityName}`}
+              title={`${cityName}`}
               subheader={country}
             />
           </Grid>
@@ -123,13 +123,17 @@ function Forecast(props) {
                 </Fade>
               }
               title={`${weatherMain} (${weatherDesc})`}
-              subheader={`${getLocalDateTime(timezoneOffset)} ${timeZone}`}
+              subheader={`${timeZone}`}
             />
           </Grid>
         </Grid>
         <Divider light variant='middle' />
         <CardContent>
-          <WeatherData data={data} />
+          <CurrentWeather data={data} />
+        </CardContent>
+        <Divider light variant='middle' />
+        <CardContent>
+          <Forecast forecast={forecast} tz={tz} />
         </CardContent>
         <Collapse in={showCityMap} timeout={1000} onEntered={() => setShowWorldMap(true)}>
           <Fade in={showWorldMap} timeout={1000}>
@@ -147,4 +151,4 @@ function Forecast(props) {
   );
 }
 
-export default Forecast;
+export default CityInfo;

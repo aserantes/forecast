@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TextField, IconButton } from '@material-ui/core';
 import { useDebouncedCallback } from 'use-debounce';
 import { Clear as ClearIcon } from '@material-ui/icons';
-import { setCityNameToSearch, setInputValue } from '../redux';
+import { setCityNameToSearch, setInputValue } from '../../redux';
 
-function Input() {
+function CityInput() {
   const dispatch = useDispatch();
   const inputRef = useRef();
   const inputValue = useSelector((state) => state.ui.inputValue);
@@ -48,4 +48,4 @@ function Input() {
   );
 }
 
-export default Input;
+export default CityInput;
