@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { Grid, makeStyles, Box, SvgIcon } from '@material-ui/core';
-import { getTime, k2c, k2f, getTempLevel } from '../helpers';
+import { getTime, k2c, k2f, getTempLevel } from '../../helpers';
 
 const useStyles = makeStyles({
   container: {
@@ -62,16 +62,16 @@ const useStyles = makeStyles({
   }
 });
 
-function WeatherData({ data }) {
+function CurrentWeather({ data }) {
   const classes = useStyles();
-  const { temp, temp_min: minTemp, temp_max: maxTemp, sunrise, sunset, pressure, humidity } = data;
+  const { minTemp, maxTemp, sunrise, sunset, pressure, humidity, tz } = data;
   const prefersCelcius = useSelector((state) => state.ui.prefersCelcius);
-
+  const temp = (maxTemp + minTemp) / 2;
   const formattedTemp = prefersCelcius ? k2c(temp) : k2f(temp);
   const formattedMinTemp = prefersCelcius ? k2c(minTemp) : k2f(minTemp);
   const formattedMaxTemp = prefersCelcius ? k2c(maxTemp) : k2f(maxTemp);
-  const formattedSunrise = getTime(sunrise);
-  const formattedSunset = getTime(sunset);
+  const formattedSunrise = getTime(sunrise, tz);
+  const formattedSunset = getTime(sunset, tz);
   const { color: tempLevelColor, path: tempLevelIconPath } = getTempLevel(temp);
   return (
     <Grid className={classes.container}>
@@ -121,4 +121,4 @@ function WeatherData({ data }) {
   );
 }
 
-export default WeatherData;
+export default CurrentWeather;

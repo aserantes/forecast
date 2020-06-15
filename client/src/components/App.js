@@ -4,10 +4,10 @@ import { useSelector } from 'react-redux';
 import { Container, Grid, Box, createMuiTheme, ThemeProvider, CssBaseline, Fade } from '@material-ui/core';
 import 'typeface-roboto';
 
-import Input from './Input';
-import ForecastResults from './ForecastResults';
-import InputResults from './InputResults';
-import MainMenu from './MainMenu';
+import CityInput from './CityInput/CityInput';
+import CityInputResults from './CityInput/CityInputResults';
+import WeatherSection from './WeatherSection/WeatherSection';
+import MainMenu from './MainMenu/MainMenu';
 
 function App() {
   const prefersDarkMode = useSelector((state) => state.ui.prefersDarkMode);
@@ -32,11 +32,11 @@ function App() {
                   <MainMenu />
                 </Grid>
                 <Grid item xs={12}>
-                  <Input />
+                  <CityInput />
                 </Grid>
                 <Grid item xs={12}>
-                  <InputResults />
-                  <ForecastResults />
+                  <CityInputResults />
+                  <WeatherSection />
                 </Grid>
               </Grid>
             </Box>

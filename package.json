@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "client": "cd client && yarn start",
-    "server": "cd server && node index.js",
+    "server": "cd server && nodemon index.js",
     "dev": "concurrently \"yarn run server\" \"yarn run client\"",
     "build-and-move": "cd client; yarn build; cd ..; rm -r server/build; mv -f client/build server",
-    "start": "node server/index.js"
+    "start": "nodemon server/index.js"
   },
   "repository": {
     "type": "git",
@@ -25,7 +25,8 @@
     "url": "https://github.com/aserantes/forecast/issues"
   },
   "devDependencies": {
-    "concurrently": "^5.1.0"
+    "concurrently": "^5.1.0",
+    "nodemon": "^2.0.4"
   },
   "dependencies": {
     "axios": "^0.19.2",

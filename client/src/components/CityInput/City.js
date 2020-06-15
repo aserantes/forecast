@@ -4,7 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 function City(props) {
   const { city, onCityClick } = props;
-  const { id, name, state, flag } = city;
+  const { id, name, state, flag, coord, country } = city;
+  const { lon, lat } = coord;
 
   const useStyles = makeStyles({
     avatar: {
@@ -24,7 +25,7 @@ function City(props) {
   const classes = useStyles();
 
   return (
-    <ListItem minwidth='0px' button onClick={() => onCityClick(id, name)}>
+    <ListItem minwidth='0px' button onClick={() => onCityClick(id, name, lon, lat, country)}>
       <ListItemAvatar classes={{ root: classes.avatar }}>
         <Avatar className={classes.small} variant='circle' alt={`country flag of ${name}`} src={flag} />
       </ListItemAvatar>
