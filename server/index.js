@@ -84,12 +84,14 @@ app.get('/forecast', (req, res) => {
 
 // /ipLocation: This endpoint proxies requests to ip-api to get the IP location information
 app.get('/ipLocation', (req, res) => {
-  const url = 'http://ip-api.com/json/'; // ip-api url
+  const ip = req.connection.remoteAddress;
+  const url = `http://ip-api.com/json/${ip}`; // ip-api url
   axios
     .get(url)
     .then((response) => {
       // REQ OK
       // RES OK (STATUS === 200)
+      console.log(response.data);
       res.status(response.status).send(response.data);
     })
     .catch((error) => {
@@ -114,7 +116,7 @@ app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   // eslint-disable-next-line no-console
   console.log(`node listening on port ${PORT}`);
 });

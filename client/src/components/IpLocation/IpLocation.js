@@ -26,6 +26,7 @@ function IpLocation(props) {
   return (
     fetchState === 'fulfilled' &&
     response &&
+    !response.message &&
     !cityToSearch.id && (
       <Box m={1}>
         <Link href='#' onClick={handleClickLink} variant='body1'>
