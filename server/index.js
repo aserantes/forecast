@@ -92,7 +92,6 @@ app.get('/ipLocation', (req, res) => {
     .then((response) => {
       // REQ OK
       // RES OK (STATUS === 200)
-      console.log(response.data);
       res.status(response.status).send(response.data);
     })
     .catch((error) => {
