@@ -11,6 +11,7 @@ import {
   Fade,
   Collapse
 } from '@material-ui/core';
+import { getLocalizedNow } from '../../helpers';
 import CurrentWeather from './CurrentWeather';
 import Forecast from './Forecast';
 
@@ -62,12 +63,12 @@ function CityInfo(props) {
   const classes = useStyles();
   const { response } = props;
   const { extraData, forecast } = response;
-  const { name: country, cityName, flag, region, subregion, timezones, lat, lon, timezoneOffset, tz } = extraData;
-  const timeZone = timezones[0];
+  const { name: country, cityName, flag, region, subregion, lat, lon, timezoneOffset, tz } = extraData;
   const { sunrise, weather, sunset, pressure, temp: mainTemp, humidity } = forecast[0];
   const { min: minTemp, max: maxTemp } = mainTemp;
   const data = { minTemp, maxTemp, sunrise, sunset, timezoneOffset, tz, flag, region, subregion, pressure, humidity };
   const { main: weatherMain, description: weatherDesc, icon: Weather } = weather[0];
+  const localizedNow = getLocalizedNow(tz);
 
   const [showCityMap, setShowCityMap] = useState(false);
   const [showWorldMap, setShowWorldMap] = useState(false);
@@ -123,7 +124,7 @@ function CityInfo(props) {
                 </Fade>
               }
               title={`${weatherMain} (${weatherDesc})`}
-              subheader={`${timeZone}`}
+              subheader={localizedNow}
             />
           </Grid>
         </Grid>
