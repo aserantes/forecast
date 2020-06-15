@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, Fade } from '@material-ui/core';
+import { Link, Box } from '@material-ui/core';
 import { fetchIpLocation, setCityToSearch } from '../../redux';
 
-function IpLocation() {
+function IpLocation(props) {
+  const { text } = props;
   const dispatch = useDispatch();
 
   const response = useSelector((state) => state.ipLocation.response);
@@ -18,20 +19,20 @@ function IpLocation() {
   };
 
   useEffect(() => {
-    dispatch(fetchIpLocation());
-  }, [dispatch]);
+    if (fetchState !== 'pending') dispatch(fetchIpLocation());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     fetchState === 'fulfilled' &&
     response &&
     !cityToSearch.id && (
-      <Fade in timeout={1000}>
+      <Box m={1}>
         <Link href='#' onClick={handleClickLink} variant='body1'>
-          <em>
-            ...Or use <strong>{`<${response.city}-${response.countryCode}>`}</strong> (auto-detected)
-          </em>
+          <em>{text}</em>
+          <strong>{`${response.city}-${response.countryCode}`}</strong>
         </Link>
-      </Fade>
+      </Box>
     )
   );
 }

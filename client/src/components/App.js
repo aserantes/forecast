@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { Container, Grid, Box, createMuiTheme, ThemeProvider, CssBaseline, Fade } from '@material-ui/core';
 import 'typeface-roboto';
 
-import IpLocation from './CityInput/IpLocation';
 import CityInput from './CityInput/CityInput';
 import CityInputResults from './CityInput/CityInputResults';
 import WeatherSection from './WeatherSection/WeatherSection';
@@ -34,7 +33,6 @@ function App() {
                 </Grid>
                 <Grid item xs={12}>
                   <CityInput />
-                  <IpLocation />
                 </Grid>
                 <Grid item xs={12}>
                   <CityInputResults />
