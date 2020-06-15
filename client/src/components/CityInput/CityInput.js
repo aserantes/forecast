@@ -4,6 +4,7 @@ import { TextField, IconButton } from '@material-ui/core';
 import { useDebouncedCallback } from 'use-debounce';
 import { Clear as ClearIcon } from '@material-ui/icons';
 import { setCityNameToSearch, setInputValue } from '../../redux';
+import IpLocation from '../IpLocation/IpLocation';
 
 function CityInput() {
   const dispatch = useDispatch();
@@ -27,24 +28,28 @@ function CityInput() {
   };
 
   return (
-    <TextField
-      inputRef={inputRef}
-      label='Enter city name'
-      id='outlined-margin-normal'
-      variant='outlined'
-      fullWidth
-      onChange={handleChange}
-      value={inputValue}
-      disabled={fetchState === 'pending'}
-      autoComplete='off'
-      InputProps={{
-        endAdornment: inputValue && (
-          <IconButton edge='end' onClick={handleClear}>
-            <ClearIcon />
-          </IconButton>
-        )
-      }}
-    />
+    <>
+      <TextField
+        inputRef={inputRef}
+        label='Enter city name'
+        id='outlined-margin-normal'
+        variant='outlined'
+        fullWidth
+        onChange={handleChange}
+        value={inputValue}
+        disabled={fetchState === 'pending'}
+        autoComplete='off'
+        InputProps={{
+          endAdornment: inputValue && (
+            <IconButton edge='end' onClick={handleClear}>
+              <ClearIcon />
+            </IconButton>
+          )
+        }}
+      />
+      <br />
+      <IpLocation text='...Or use device IP location: ' />
+    </>
   );
 }
 

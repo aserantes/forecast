@@ -41,7 +41,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '8px'
   },
   list: {
-    minWidth: '288px'
+    minWidth: '288px',
+    outline: 'none'
   },
   root: {
     whiteSpace: 'nowrap',
