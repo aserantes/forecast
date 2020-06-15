@@ -1,4 +1,6 @@
-if (process.env.NODE_ENV !== 'production') {
+const atDevEnv = process.env.NODE_ENV !== 'production';
+
+if (atDevEnv) {
   // eslint-disable-next-line global-require
   require('dotenv').config();
 }
@@ -84,8 +86,7 @@ app.get('/forecast', (req, res) => {
 
 // /ipLocation: This endpoint proxies requests to ip-api to get the IP location information
 app.get('/ipLocation', (req, res) => {
-  // const ip = req.connection.remoteAddress; <-- This won't work as node in this case is acting as proxy
-  const ip = req.headers['x-forwarded-for'];
+  const ip = atDevEnv ? '' : req.headers['x-forwarded-for'];
   const url = `http://ip-api.com/json/${ip}`;
   axios
     .get(url)
