@@ -1,6 +1,6 @@
 ## Weather App
 
-_(a functional React/Redux skills demo app)_
+_(a current weather and forecast app with searcheable city to showcase react skills)_
 
 ### > [Link to online production build](http://wee-weather-app.herokuapp.com/) <
 
