@@ -76,7 +76,7 @@ function CityInfo(props) {
   const [showWeather, setShowWeather] = useState(false);
 
   const googleMapStaticUrl = 'https://maps.googleapis.com/maps/api/staticmap';
-  const publicApiKey = 'AIzaSyATSrlXeexQILWJpBpOehRMdeVeRowLq70';
+  const publicApiKey = 'AIzaSyBgwnQzmtPC01miAuDP5hk-agqIz_q_EVY';
   const cityMapUrl = `${googleMapStaticUrl}?zoom=10&scale=1&size=568x568&maptype=hybrid&markers=size:mid%7Ccolor:red%7C${lat},${lon}&key=${publicApiKey}`;
   const worldMapUrl = `${googleMapStaticUrl}?zoom=1&scale=1&size=100x100&maptype=terrain&markers=size:tiny%7Ccolor:red%7C${lat},${lon}&key=${publicApiKey}`;
   return (
