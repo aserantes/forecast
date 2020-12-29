@@ -1,6 +1,6 @@
 ## Weather App
 
-_A full stack app to get a current weather report and a forecast from a city database. Features a map, animations, dark-mode, persistend last cities, current city autodetection, etc. Originally created for a tech challenge (4 weeks time restriction). Made public to showcase my react skills as part of portfolio._
+_A full stack app to get a current weather report and a forecast from a selectable city database. Features a map, countries respective flags, animations, dark-mode, locally persisted last cities queries, current city autodetection, etc. Originally created for a tech challenge (4 weeks time restriction). Made public to showcase my react skills as part of portfolio._
 
 ### > [Link to online production build](http://wee-weather-app.herokuapp.com/) <
 
